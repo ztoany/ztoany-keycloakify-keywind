@@ -1,10 +1,10 @@
 {
-    "name": "keycloakify-starter",
+    "name": "ztoany-keycloakify-keywind",
     "version": "0.0.0",
     "description": "Starter for Keycloakify 11",
     "repository": {
         "type": "git",
-        "url": "git://github.com/codegouvfr/keycloakify-starter.git"
+        "url": "git@github.com:ztoany/ztoany-keycloakify-keywind.git"
     },
     "type": "module",
     "scripts": {
