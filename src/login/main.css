@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.separate {
+    @apply flex items-center text-center;
+}
+
+.separate::after,
+.separate::before {
+    content: '';
+    @apply border-b border-secondary-200 flex-1;
+}
+
+.separate:not(:empty)::after {
+    @apply ml-2;
+}
+
+.separate:not(:empty)::before {
+    @apply mr-2;
+}
+
+.kcBodyClass {
+    @apply bg-secondary-100 flex flex-col items-center justify-center min-h-screen sm:py-16;
+}
+
+.loginContainerClass {
+    @apply max-w-md space-y-6 w-full;
+}
+
+.cardContainerClass {
+    @apply bg-white p-8 rounded-lg space-y-6;
+}
+
+.navContainerClass {
+    @apply flex justify-around;
+}
+
+.logoClass {
+    @apply font-bold text-center text-2xl;
+}
+
+.cardSpaceClass {
+    @apply space-y-4;
+}
+
+.resetLoginClass {
+    @apply flex items-center justify-center mb-4 space-x-2;
+}
+
+.kcLabelClass {
+    @apply sr-only;
+}
+
+.kcInputClass {
+    @apply block border-secondary-200 mt-1 rounded-md w-full focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 sm:text-sm;
+}
+
+.kcFormPasswordVisibilityButtonClass {
+    @apply absolute text-secondary-400 right-3 top-3 sm:top-2;
+}
+
+.kcFormSettingClass {
+    @apply flex items-center justify-between;
+}
+
+.kcButtonClass {
+    @apply flex justify-center relative rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.kcButtonPrimaryClass {
+    @apply bg-primary-600 text-white focus:ring-primary-600 hover:bg-primary-700;
+}
+
+.buttonGroupClass {
+    @apply flex flex-col pt-4 space-y-2;
+}
+
+.buttonFontSizeSmallClass {
+    @apply px-2 py-1 text-xs;
+}
+
+.buttonFontSizeMediumClass {
+    @apply px-4 py-2 text-sm;
+}
+
+.buttonSecondaryClass {
+    @apply bg-secondary-100 text-secondary-600 focus:ring-secondary-600 hover:bg-secondary-200 hover:text-secondary-900;
+}
+
+.kcInfoAreaWrapperClass {
+    @apply text-center;
+}
+
+.kcLocaleListClass {
+    @apply absolute bg-white bottom-0 -left-4 max-h-80 mb-6 overflow-y-scroll rounded-lg shadow-lg;
+}
+
+.kcLocaleListItemClass {
+    @apply px-4 py-2;
+}
+
+.kcLocaleItemClass {
+    @apply text-sm;
+}
+
+.kcAlertClass {
+    @apply p-4 rounded-lg text-sm;
+}
+
+.kcInputErrorMessageClass {
+    @apply mt-2 text-red-600 text-sm
+}
+
+.kcFormSocialAccountListClass {
+    @apply gap-4 grid grid-cols-3;
+}
+
+
+.linkPrimaryClass {
+    @apply text-primary-600 hover:text-primary-500 inline-flex;
+}
+
+.linkSecondaryClass {
+    @apply text-secondary-600 hover:text-secondary-900 inline-flex;
+}
+
+.checkBoxClass {
+    @apply border-secondary-200 h-4 rounded text-primary-600 w-4 focus:ring-primary-200 focus:ring-opacity-50;
+}
+
+
+
+.alterErrorColorClass {
+    @apply bg-red-100 text-red-600;
+}
+
+.alterInfoColorClass {
+    @apply bg-blue-100 text-blue-600;
+}
+
+.alterSuccessColorClass {
+    @apply bg-green-100 text-green-600;
+}
+
+.alterWarningColorClass {
+    @apply bg-orange-100 text-orange-600;
+}
+
+.alterDefaultColorClass {
+    @apply bg-blue-100 text-blue-600;
+}
+
+.formSpaceClass {
+    @apply m-0 space-y-4;
+}
+
+.socialProviderClass {
+    @apply border border-secondary-200 flex justify-center py-2 rounded-lg hover:border-transparent;
+}
+
+.appleProviderColorClass {
+    @apply hover:bg-provider-apple/10;
+}
+
+.bitbucketProviderColorClass {
+    @apply hover:bg-provider-bitbucket/10;
+}
+
+.discordProviderColorClass {
+    @apply hover:bg-provider-discord/10;
+}
+
+.facebookProviderColorClass {
+    @apply hover:bg-provider-facebook/10;
+}
+
+.githubProviderColorClass {
+    @apply hover:bg-provider-github/10;
+}
+
+.gitlabProviderColorClass {
+    @apply hover:bg-provider-gitlab/10;
+}
+
+.googleProviderColorClass {
+    @apply hover:bg-provider-google/10;
+}
+
+.instagramProviderColorClass {
+    @apply hover:bg-provider-instagram/10;
+}
+
+.linkedinProviderColorClass {
+    @apply hover:bg-provider-linkedin/10;
+}
+
+.microsoftProviderColorClass {
+    @apply hover:bg-provider-microsoft/10;
+}
+
+.oidcProviderColorClass {
+    @apply hover:bg-provider-oidc/10;
+}
+
+.openshiftProviderColorClass {
+    @apply hover:bg-provider-openshift/10;
+}
+
+.paypalProviderColorClass {
+    @apply hover:bg-provider-paypal/10;
+}
+
+.slackProviderColorClass {
+    @apply hover:bg-provider-slack/10;
+}
+
+.stackoverflowProviderColorClass {
+    @apply hover:bg-provider-stackoverflow/10;
+}
+
+.twitterProviderColorClass {
+    @apply hover:bg-provider-twitter/10;
+}
+
+.defaultProviderColorClass {
+    @apply hover:bg-secondary-100;
+}
