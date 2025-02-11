@@ -1,5 +1,4 @@
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
-import { KcContext } from "keycloakify/login/KcContext/KcContext";
 import { ClassKey, getKcClsx, KcClsx } from "keycloakify/login/lib/kcClsx";
 import { clsx } from "keycloakify/tools/clsx";
 import { useIsPasswordRevealed } from "keycloakify/tools/useIsPasswordRevealed";
@@ -12,52 +11,60 @@ export default function PasswordInput({
     doUseDefaultCss,
     classes,
     i18n,
+    id,
+    name,
+    autoComplete,
+    placeholder,
     usernameHidden,
-    messagesPerField,
-    onlyPasswordInput
+    invalid,
+    errorMsg,
+    autoFocus = false
 }: {
     tabIndex: number;
     doUseDefaultCss: boolean;
     classes?: Partial<Record<ClassKey, string>>;
     i18n: I18n;
+    id: string;
+    name: string;
+    autoComplete: string;
+    placeholder: string;
     usernameHidden: boolean | undefined;
-    messagesPerField: KcContext.Common["messagesPerField"];
-    onlyPasswordInput: boolean;
+    invalid: boolean;
+    errorMsg: string;
+    autoFocus: boolean;
 }) {
     const { kcClsx } = getKcClsx({
         doUseDefaultCss,
         classes
     });
 
-    const { msg, msgStr } = i18n;
-
-    const errorExists = onlyPasswordInput
-        ? messagesPerField.existsError("password")
-        : messagesPerField.existsError("username", "password");
-
-    const errorMsg = onlyPasswordInput
-        ? messagesPerField.get("password")
-        : messagesPerField.getFirstError("username", "password");
+    const { msg } = i18n;
 
     return (
         <div className={kcClsx("kcFormGroupClass")}>
             <label htmlFor="password" className={kcClsx("kcLabelClass")}>
                 {msg("password")}
             </label>
-            <PasswordWrapper kcClsx={kcClsx} i18n={i18n} passwordInputId="password">
+            <PasswordWrapper
+                kcClsx={kcClsx}
+                i18n={i18n}
+                passwordInputId="password"
+                tabIndex={tabIndex + 1}
+            >
                 <input
                     tabIndex={tabIndex}
-                    id="password"
+                    id={id}
                     className={kcClsx("kcInputClass")}
-                    name="password"
+                    name={name}
                     type="password"
-                    autoComplete="current-password"
-                    aria-invalid={messagesPerField.existsError("username", "password")}
-                    placeholder={msgStr("password")}
-                    autoFocus={onlyPasswordInput}
+                    autoComplete={autoComplete}
+                    aria-invalid={invalid}
+                    placeholder={placeholder}
+                    autoFocus={autoFocus}
+                    required
                 />
             </PasswordWrapper>
-            {usernameHidden && errorExists && (
+            {usernameHidden && invalid && (
                 <div
                     id="input-error"
                     className={kcClsx("kcInputErrorMessageClass")}
@@ -76,8 +83,9 @@ function PasswordWrapper(props: {
     i18n: I18n;
     passwordInputId: string;
     children: JSX.Element;
+    tabIndex: number;
 }) {
-    const { kcClsx, i18n, passwordInputId, children } = props;
+    const { kcClsx, i18n, passwordInputId, children, tabIndex } = props;
 
     const { msgStr } = i18n;
 
@@ -94,6 +102,7 @@ function PasswordWrapper(props: {
                 aria-label={msgStr(isPasswordRevealed ? "hidePassword" : "showPassword")}
                 aria-controls={passwordInputId}
                 onClick={toggleIsPasswordRevealed}
+                tabIndex={tabIndex}
             >
                 {isPasswordRevealed ? <EyeSlashIcon /> : <EyeIcon />}
             </button>

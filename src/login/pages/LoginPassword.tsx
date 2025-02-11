@@ -11,7 +11,7 @@ export default function LoginPassword(props: PageProps<Extract<KcContext, { page
 
     const { realm, url, messagesPerField } = kcContext;
 
-    const { msg } = i18n;
+    const { msg, msgStr } = i18n;
 
     const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(false);
 
@@ -41,9 +41,14 @@ export default function LoginPassword(props: PageProps<Extract<KcContext, { page
                             doUseDefaultCss={doUseDefaultCss}
                             classes={classes}
                             i18n={i18n}
+                            id="password"
+                            name="password"
+                            autoComplete="on"
+                            placeholder={msgStr("password")}
                             usernameHidden={true}
-                            messagesPerField={messagesPerField}
-                            onlyPasswordInput={true}
+                            invalid={messagesPerField.existsError("password")}
+                            errorMsg={messagesPerField.get("password")}
+                            autoFocus={true}
                         ></PasswordInput>
 
                         <LoginFormSetting

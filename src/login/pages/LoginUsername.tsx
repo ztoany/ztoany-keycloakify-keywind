@@ -4,7 +4,7 @@ import type { KcContext } from "../KcContext";
 import LoginButton from "../components/LoginButton";
 import LoginFormSetting from "../components/LoginFormSetting";
 import RegistrationInfo from "../components/RegistrationInfo";
-import UsernameInput from "../components/UsernameInput";
+import UsernameOrEmailInput from "../components/UsernameOrEmailInput";
 import SocialProviders from "../components/providers/SocialProviders";
 import type { I18n } from "../i18n";
 
@@ -45,17 +45,23 @@ export default function LoginUsername(props: PageProps<Extract<KcContext, { page
                             className="formSpaceClass"
                         >
                             {!usernameHidden && (
-                                <UsernameInput
+                                <UsernameOrEmailInput
                                     tabIndex={2}
                                     doUseDefaultCss={doUseDefaultCss}
                                     classes={classes}
                                     i18n={i18n}
+                                    id="username"
+                                    name="username"
+                                    type="text"
+                                    autoComplete="off"
                                     loginWithEmailAllowed={realm.loginWithEmailAllowed}
                                     registrationEmailAsUsername={realm.registrationEmailAsUsername}
                                     loginUsername={login.username}
-                                    messagesPerField={messagesPerField}
-                                    errorMsgOnlyUsername={true}
-                                ></UsernameInput>
+                                    invalid={messagesPerField.existsError("username")}
+                                    errorExists={messagesPerField.existsError("username")}
+                                    errorMsg={messagesPerField.getFirstError("username")}
+                                    autoFocus={true}
+                                ></UsernameOrEmailInput>
                             )}
 
                             <LoginFormSetting

@@ -1,28 +1,39 @@
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
-import { KcContext } from "keycloakify/login/KcContext/KcContext";
 import { ClassKey, getKcClsx } from "keycloakify/login/lib/kcClsx";
 import { I18n } from "../i18n";
 
-export default function UsernameInput({
+export default function UsernameOrEmailInput({
     tabIndex,
     doUseDefaultCss,
     classes,
     i18n,
+    id,
+    type,
+    name,
+    autoComplete,
     loginWithEmailAllowed,
     registrationEmailAsUsername,
     loginUsername,
-    messagesPerField,
-    errorMsgOnlyUsername
+    invalid,
+    errorExists,
+    errorMsg,
+    autoFocus
 }: {
     tabIndex: number;
     doUseDefaultCss: boolean;
     classes?: Partial<Record<ClassKey, string>>;
     i18n: I18n;
+    id: string;
+    type: string;
+    name: string;
+    autoComplete: string;
     loginWithEmailAllowed: boolean;
     registrationEmailAsUsername: boolean;
     loginUsername: string | undefined;
-    messagesPerField: KcContext.Common["messagesPerField"];
-    errorMsgOnlyUsername: boolean;
+    invalid: boolean;
+    errorExists: boolean;
+    errorMsg: string;
+    autoFocus: boolean;
 }) {
     const { kcClsx } = getKcClsx({
         doUseDefaultCss,
@@ -30,13 +41,6 @@ export default function UsernameInput({
     });
 
     const { msg, msgStr } = i18n;
-
-    const errorExists = errorMsgOnlyUsername
-        ? messagesPerField.existsError("username")
-        : messagesPerField.existsError("username", "password");
-    const errorMsg = errorMsgOnlyUsername
-        ? messagesPerField.getFirstError("username")
-        : messagesPerField.getFirstError("username", "password");
 
     return (
         <div className={kcClsx("kcFormGroupClass")}>
@@ -49,14 +53,15 @@ export default function UsernameInput({
             </label>
             <input
                 tabIndex={tabIndex}
-                id="username"
+                id={id}
                 className={kcClsx("kcInputClass")}
-                name="username"
+                name={name}
                 defaultValue={loginUsername ?? ""}
-                type="text"
-                autoFocus
-                autoComplete="username"
-                aria-invalid={errorExists}
+                type={type}
+                autoFocus={autoFocus}
+                autoComplete={autoComplete}
+                aria-invalid={invalid}
+                required
                 placeholder={
                     !loginWithEmailAllowed
                         ? msgStr("username")

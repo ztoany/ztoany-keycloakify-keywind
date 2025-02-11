@@ -1,12 +1,16 @@
-import type { JSX } from "keycloakify/tools/JSX";
-import { useState } from "react";
-import type { LazyOrNot } from "keycloakify/tools/LazyOrNot";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
-import { getKcClsx, type KcClsx } from "keycloakify/login/lib/kcClsx";
-import { clsx } from "keycloakify/tools/clsx";
 import type { UserProfileFormFieldsProps } from "keycloakify/login/UserProfileFormFieldsProps";
+import { getKcClsx, type KcClsx } from "keycloakify/login/lib/kcClsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
+import type { JSX } from "keycloakify/tools/JSX";
+import type { LazyOrNot } from "keycloakify/tools/LazyOrNot";
+import { clsx } from "keycloakify/tools/clsx";
+import { useState } from "react";
 import type { KcContext } from "../KcContext";
+import BackToLogin from "../components/BackToLogin";
+import PasswordInput from "../components/PasswordInput";
+import RegisterButton from "../components/RegisterButton";
+import UsernameOrEmailInput from "../components/UsernameOrEmailInput";
 import type { I18n } from "../i18n";
 
 type RegisterProps = PageProps<Extract<KcContext, { pageId: "register.ftl" }>, I18n> & {
@@ -15,7 +19,9 @@ type RegisterProps = PageProps<Extract<KcContext, { pageId: "register.ftl" }>, I
 };
 
 export default function Register(props: RegisterProps) {
-    const { kcContext, i18n, doUseDefaultCss, Template, classes, UserProfileFormFields, doMakeUserConfirmPassword } = props;
+    const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
+
+    const { realm } = kcContext;
 
     const { kcClsx } = getKcClsx({
         doUseDefaultCss,
@@ -27,7 +33,6 @@ export default function Register(props: RegisterProps) {
 
     const { msg, msgStr, advancedMsg } = i18n;
 
-    const [isFormSubmittable, setIsFormSubmittable] = useState(false);
     const [areTermsAccepted, setAreTermsAccepted] = useState(false);
 
     return (
@@ -40,14 +45,75 @@ export default function Register(props: RegisterProps) {
             displayMessage={messagesPerField.exists("global")}
             displayRequiredFields
         >
-            <form id="kc-register-form" className={kcClsx("kcFormClass")} action={url.registrationAction} method="post">
-                <UserProfileFormFields
-                    kcContext={kcContext}
+            <form id="kc-register-form" className={clsx(kcClsx("kcFormClass"), "formSpaceClass")} action={url.registrationAction} method="post">
+                <UsernameOrEmailInput
+                    tabIndex={2}
+                    doUseDefaultCss={doUseDefaultCss}
+                    classes={classes}
                     i18n={i18n}
-                    kcClsx={kcClsx}
-                    onIsFormSubmittableValueChange={setIsFormSubmittable}
-                    doMakeUserConfirmPassword={doMakeUserConfirmPassword}
-                />
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    loginWithEmailAllowed={true}
+                    registrationEmailAsUsername={true}
+                    loginUsername=""
+                    invalid={messagesPerField.existsError("email")}
+                    errorExists={messagesPerField.existsError("email")}
+                    errorMsg={messagesPerField.get("email")}
+                    autoFocus={true}
+                ></UsernameOrEmailInput>
+
+                {!realm.registrationEmailAsUsername && (
+                    <UsernameOrEmailInput
+                        tabIndex={3}
+                        doUseDefaultCss={doUseDefaultCss}
+                        classes={classes}
+                        i18n={i18n}
+                        id="username"
+                        name="username"
+                        type="text"
+                        autoComplete="username"
+                        loginWithEmailAllowed={false}
+                        registrationEmailAsUsername={true}
+                        loginUsername=""
+                        invalid={messagesPerField.existsError("username")}
+                        errorExists={messagesPerField.existsError("username")}
+                        errorMsg={messagesPerField.get("username")}
+                        autoFocus={false}
+                    ></UsernameOrEmailInput>
+                )}
+
+                <PasswordInput
+                    tabIndex={4}
+                    doUseDefaultCss={doUseDefaultCss}
+                    classes={classes}
+                    i18n={i18n}
+                    id="password"
+                    name="password"
+                    autoComplete="new-password"
+                    placeholder={msgStr("password")}
+                    usernameHidden={true}
+                    invalid={messagesPerField.existsError("password", "password-confirm")}
+                    errorMsg={messagesPerField.getFirstError("password", "password-confirm")}
+                    autoFocus={false}
+                ></PasswordInput>
+
+                <PasswordInput
+                    tabIndex={6}
+                    doUseDefaultCss={doUseDefaultCss}
+                    classes={classes}
+                    i18n={i18n}
+                    id="password-confirm"
+                    name="password-confirm"
+                    autoComplete="new-password"
+                    placeholder={msgStr("passwordConfirm")}
+                    usernameHidden={true}
+                    invalid={messagesPerField.existsError("password-confirm")}
+                    errorMsg={messagesPerField.getFirstError("password-confirm")}
+                    autoFocus={false}
+                ></PasswordInput>
+
                 {termsAcceptanceRequired && (
                     <TermsAcceptance
                         i18n={i18n}
@@ -57,6 +123,7 @@ export default function Register(props: RegisterProps) {
                         onAreTermsAcceptedValueChange={setAreTermsAccepted}
                     />
                 )}
+
                 {recaptchaRequired && (recaptchaVisible || recaptchaAction === undefined) && (
                     <div className="form-group">
                         <div className={kcClsx("kcInputWrapperClass")}>
@@ -64,43 +131,10 @@ export default function Register(props: RegisterProps) {
                         </div>
                     </div>
                 )}
-                <div className={kcClsx("kcFormGroupClass")}>
-                    <div id="kc-form-options" className={kcClsx("kcFormOptionsClass")}>
-                        <div className={kcClsx("kcFormOptionsWrapperClass")}>
-                            <span>
-                                <a href={url.loginUrl}>{msg("backToLogin")}</a>
-                            </span>
-                        </div>
-                    </div>
 
-                    {recaptchaRequired && !recaptchaVisible && recaptchaAction !== undefined ? (
-                        <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")}>
-                            <button
-                                className={clsx(
-                                    kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonBlockClass", "kcButtonLargeClass"),
-                                    "g-recaptcha"
-                                )}
-                                data-sitekey={recaptchaSiteKey}
-                                data-callback={() => {
-                                    (document.getElementById("kc-register-form") as HTMLFormElement).submit();
-                                }}
-                                data-action={recaptchaAction}
-                                type="submit"
-                            >
-                                {msg("doRegister")}
-                            </button>
-                        </div>
-                    ) : (
-                        <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")}>
-                            <input
-                                disabled={!isFormSubmittable || (termsAcceptanceRequired && !areTermsAccepted)}
-                                className={kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonBlockClass", "kcButtonLargeClass")}
-                                type="submit"
-                                value={msgStr("doRegister")}
-                            />
-                        </div>
-                    )}
-                </div>
+                <RegisterButton tabIndex={11} doUseDefaultCss={doUseDefaultCss} classes={classes} i18n={i18n} disabled={false}></RegisterButton>
+
+                <BackToLogin tabIndex={12} i18n={i18n} loginUrl={url.loginUrl}></BackToLogin>
             </form>
         </Template>
     );
@@ -118,41 +152,34 @@ function TermsAcceptance(props: {
     const { msg } = i18n;
 
     return (
-        <>
-            <div className="form-group">
-                <div className={kcClsx("kcInputWrapperClass")}>
-                    {msg("termsTitle")}
-                    <div id="kc-registration-terms-text">{msg("termsText")}</div>
-                </div>
+        <div className="kcFormSettingClass">
+            <div className="flex items-center">
+                <input
+                    type="checkbox"
+                    id="termsAccepted"
+                    name="termsAccepted"
+                    className="checkBoxClass"
+                    checked={areTermsAccepted}
+                    onChange={e => onAreTermsAcceptedValueChange(e.target.checked)}
+                    aria-invalid={messagesPerField.existsError("termsAccepted")}
+                />{" "}
+                <label htmlFor="termsAccepted" className={kcClsx("kcLabelClass")}>
+                    {msg("acceptTerms")}
+                </label>
+                <div className="ml-2 text-secondary-600 text-sm">{msg("termsText")}</div>
             </div>
-            <div className="form-group">
+            {messagesPerField.existsError("termsAccepted") && (
                 <div className={kcClsx("kcLabelWrapperClass")}>
-                    <input
-                        type="checkbox"
-                        id="termsAccepted"
-                        name="termsAccepted"
-                        className={kcClsx("kcCheckboxInputClass")}
-                        checked={areTermsAccepted}
-                        onChange={e => onAreTermsAcceptedValueChange(e.target.checked)}
-                        aria-invalid={messagesPerField.existsError("termsAccepted")}
+                    <span
+                        id="input-error-terms-accepted"
+                        className={kcClsx("kcInputErrorMessageClass")}
+                        aria-live="polite"
+                        dangerouslySetInnerHTML={{
+                            __html: kcSanitize(messagesPerField.get("termsAccepted"))
+                        }}
                     />
-                    <label htmlFor="termsAccepted" className={kcClsx("kcLabelClass")}>
-                        {msg("acceptTerms")}
-                    </label>
                 </div>
-                {messagesPerField.existsError("termsAccepted") && (
-                    <div className={kcClsx("kcLabelWrapperClass")}>
-                        <span
-                            id="input-error-terms-accepted"
-                            className={kcClsx("kcInputErrorMessageClass")}
-                            aria-live="polite"
-                            dangerouslySetInnerHTML={{
-                                __html: kcSanitize(messagesPerField.get("termsAccepted"))
-                            }}
-                        />
-                    </div>
-                )}
-            </div>
-        </>
+            )}
+        </div>
     );
 }

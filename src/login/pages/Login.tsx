@@ -5,7 +5,7 @@ import LoginButton from "../components/LoginButton";
 import LoginFormSetting from "../components/LoginFormSetting";
 import PasswordInput from "../components/PasswordInput";
 import RegistrationInfo from "../components/RegistrationInfo";
-import UsernameInput from "../components/UsernameInput";
+import UsernameOrEmailInput from "../components/UsernameOrEmailInput";
 import SocialProviders from "../components/providers/SocialProviders";
 import type { I18n } from "../i18n";
 
@@ -14,7 +14,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
 
     const { social, realm, url, usernameHidden, login, auth, registrationDisabled, messagesPerField } = kcContext;
 
-    const { msg } = i18n;
+    const { msg, msgStr } = i18n;
 
     const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(false);
 
@@ -47,17 +47,23 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                         >
                             <input type="hidden" id="id-hidden-input" name="credentialId" value={auth.selectedCredential} />
                             {!usernameHidden && (
-                                <UsernameInput
+                                <UsernameOrEmailInput
                                     tabIndex={2}
                                     doUseDefaultCss={doUseDefaultCss}
                                     classes={classes}
                                     i18n={i18n}
+                                    id="username"
+                                    name="username"
+                                    type="text"
+                                    autoComplete="username"
                                     loginWithEmailAllowed={realm.loginWithEmailAllowed}
                                     registrationEmailAsUsername={realm.registrationEmailAsUsername}
                                     loginUsername={login.username}
-                                    messagesPerField={messagesPerField}
-                                    errorMsgOnlyUsername={false}
-                                ></UsernameInput>
+                                    invalid={messagesPerField.existsError("username", "password")}
+                                    errorExists={messagesPerField.existsError("username", "password")}
+                                    errorMsg={messagesPerField.getFirstError("username", "password")}
+                                    autoFocus={true}
+                                ></UsernameOrEmailInput>
                             )}
 
                             <PasswordInput
@@ -65,9 +71,14 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                 doUseDefaultCss={doUseDefaultCss}
                                 classes={classes}
                                 i18n={i18n}
+                                id="password"
+                                name="password"
+                                autoComplete="current-password"
+                                placeholder={msgStr("password")}
                                 usernameHidden={usernameHidden}
-                                messagesPerField={messagesPerField}
-                                onlyPasswordInput={false}
+                                invalid={messagesPerField.existsError("username", "password")}
+                                errorMsg={messagesPerField.getFirstError("username", "password")}
+                                autoFocus={false}
                             ></PasswordInput>
 
                             <LoginFormSetting
