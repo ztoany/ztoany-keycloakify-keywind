@@ -98,7 +98,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                         ></div>
                     )}
                     {children}
-                    {displayRequiredFields && <p className="text-secondary-600 text-sm">* ${msg("requiredFields")}</p>}
+                    {displayRequiredFields && <p className="text-secondary-600 text-sm">* {msg("requiredFields")}</p>}
                     {auth !== undefined && auth.showTryAnotherWayLink && (
                         <form id="kc-select-try-another-way-form" action={url.loginAction} method="post">
                             <input type="hidden" name="tryAnotherWay" value="on" />
@@ -109,15 +109,17 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                     )}
                     {socialProvidersNode}
                 </div>
-                <div id="kc-card-footer" className="cardSpaceClass">
-                    {displayInfo && (
-                        <div id="kc-info" className={kcClsx("kcSignUpClass")}>
-                            <div id="kc-info-wrapper" className={kcClsx("kcInfoAreaWrapperClass")}>
-                                {infoNode}
+                {infoNode && (
+                    <div id="kc-card-footer" className="cardSpaceClass">
+                        {displayInfo && (
+                            <div id="kc-info" className={kcClsx("kcSignUpClass")}>
+                                <div id="kc-info-wrapper" className={kcClsx("kcInfoAreaWrapperClass")}>
+                                    {infoNode}
+                                </div>
                             </div>
-                        </div>
-                    )}
-                </div>
+                        )}
+                    </div>
+                )}
             </div>
             <div id="kc-nav" className="navContainerClass">
                 {enabledLanguages.length > 1 && (

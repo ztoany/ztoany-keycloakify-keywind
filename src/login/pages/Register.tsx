@@ -43,7 +43,6 @@ export default function Register(props: RegisterProps) {
             classes={classes}
             headerNode={messageHeader !== undefined ? advancedMsg(messageHeader) : msg("registerTitle")}
             displayMessage={messagesPerField.exists("global")}
-            displayRequiredFields
         >
             <form id="kc-register-form" className={clsx(kcClsx("kcFormClass"), "formSpaceClass")} action={url.registrationAction} method="post">
                 <UsernameOrEmailInput
@@ -93,6 +92,7 @@ export default function Register(props: RegisterProps) {
                     name="password"
                     autoComplete="new-password"
                     placeholder={msgStr("password")}
+                    labelContent={msgStr("password")}
                     usernameHidden={true}
                     invalid={messagesPerField.existsError("password", "password-confirm")}
                     errorMsg={messagesPerField.getFirstError("password", "password-confirm")}
@@ -108,6 +108,7 @@ export default function Register(props: RegisterProps) {
                     name="password-confirm"
                     autoComplete="new-password"
                     placeholder={msgStr("passwordConfirm")}
+                    labelContent={msgStr("passwordConfirm")}
                     usernameHidden={true}
                     invalid={messagesPerField.existsError("password-confirm")}
                     errorMsg={messagesPerField.getFirstError("password-confirm")}

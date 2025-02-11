@@ -15,6 +15,7 @@ export default function PasswordInput({
     name,
     autoComplete,
     placeholder,
+    labelContent,
     usernameHidden,
     invalid,
     errorMsg,
@@ -28,6 +29,7 @@ export default function PasswordInput({
     name: string;
     autoComplete: string;
     placeholder: string;
+    labelContent: string;
     usernameHidden: boolean | undefined;
     invalid: boolean;
     errorMsg: string;
@@ -38,17 +40,15 @@ export default function PasswordInput({
         classes
     });
 
-    const { msg } = i18n;
-
     return (
         <div className={kcClsx("kcFormGroupClass")}>
-            <label htmlFor="password" className={kcClsx("kcLabelClass")}>
-                {msg("password")}
+            <label htmlFor={id} className={kcClsx("kcLabelClass")}>
+                {labelContent}
             </label>
             <PasswordWrapper
                 kcClsx={kcClsx}
                 i18n={i18n}
-                passwordInputId="password"
+                passwordInputId={id}
                 tabIndex={tabIndex + 1}
             >
                 <input

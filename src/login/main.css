@@ -2,26 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-.separate {
-    @apply flex items-center text-center;
+@layer components {
+    .separate {
+        @apply flex items-center text-center;
+    }
+    
+    .separate::after,
+    .separate::before {
+        content: '';
+        @apply border-b border-secondary-200 flex-1;
+    }
+    
+    .separate:not(:empty)::after {
+        @apply ml-2;
+    }
+    
+    .separate:not(:empty)::before {
+        @apply mr-2;
+    }
 }
 
-.separate::after,
-.separate::before {
-    content: '';
-    @apply border-b border-secondary-200 flex-1;
-}
-
-.separate:not(:empty)::after {
-    @apply ml-2;
-}
-
-.separate:not(:empty)::before {
-    @apply mr-2;
-}
 
 .kcBodyClass {
     @apply bg-secondary-100 flex flex-col items-center justify-center min-h-screen sm:py-16;
+}
+
+#root {
+    @apply max-w-md space-y-6 w-full;
 }
 
 .loginContainerClass {

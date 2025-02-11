@@ -75,23 +75,26 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                 name="password"
                                 autoComplete="current-password"
                                 placeholder={msgStr("password")}
+                                labelContent={msgStr("password")}
                                 usernameHidden={usernameHidden}
                                 invalid={messagesPerField.existsError("username", "password")}
                                 errorMsg={messagesPerField.getFirstError("username", "password")}
                                 autoFocus={false}
                             ></PasswordInput>
 
-                            <LoginFormSetting
-                                tabIndex={5}
-                                doUseDefaultCss={doUseDefaultCss}
-                                classes={classes}
-                                i18n={i18n}
-                                rememberMeEnabled={realm.rememberMe}
-                                usernameHidden={usernameHidden}
-                                loginRememberMe={login.rememberMe}
-                                realmResetPasswordAllowed={realm.resetPasswordAllowed}
-                                loginResetCredentialsUrl={url.loginResetCredentialsUrl}
-                            ></LoginFormSetting>
+                            {(realm.rememberMe || realm.resetPasswordAllowed) && (
+                                <LoginFormSetting
+                                    tabIndex={5}
+                                    doUseDefaultCss={doUseDefaultCss}
+                                    classes={classes}
+                                    i18n={i18n}
+                                    rememberMeEnabled={realm.rememberMe}
+                                    usernameHidden={usernameHidden}
+                                    loginRememberMe={login.rememberMe}
+                                    realmResetPasswordAllowed={realm.resetPasswordAllowed}
+                                    loginResetCredentialsUrl={url.loginResetCredentialsUrl}
+                                ></LoginFormSetting>
+                            )}
 
                             <LoginButton
                                 tabIndex={7}

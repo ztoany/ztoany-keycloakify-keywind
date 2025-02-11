@@ -45,6 +45,7 @@ export default function LoginPassword(props: PageProps<Extract<KcContext, { page
                             name="password"
                             autoComplete="on"
                             placeholder={msgStr("password")}
+                            labelContent={msgStr("password")}
                             usernameHidden={true}
                             invalid={messagesPerField.existsError("password")}
                             errorMsg={messagesPerField.get("password")}

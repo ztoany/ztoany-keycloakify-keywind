@@ -44,7 +44,7 @@ export default function UsernameOrEmailInput({
 
     return (
         <div className={kcClsx("kcFormGroupClass")}>
-            <label htmlFor="username" className={kcClsx("kcLabelClass")}>
+            <label htmlFor={id} className={kcClsx("kcLabelClass")}>
                 {!loginWithEmailAllowed
                     ? msg("username")
                     : !registrationEmailAsUsername
