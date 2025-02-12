@@ -138,7 +138,6 @@ export default function LoginConfigTotp(props: PageProps<Extract<KcContext, { pa
                     {isAppInitiatedAction ? (
                         <ButtonGroup>
                             <>
-                                {" "}
                                 <SubmitButton
                                     doUseDefaultCss={doUseDefaultCss}
                                     classes={classes}

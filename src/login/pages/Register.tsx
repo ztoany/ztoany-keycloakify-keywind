@@ -8,11 +8,11 @@ import { clsx } from "keycloakify/tools/clsx";
 import { useState } from "react";
 import type { KcContext } from "../KcContext";
 import BackToLogin from "../components/BackToLogin";
+import ButtonGroup from "../components/ButtonGroup";
 import PasswordInput from "../components/PasswordInput";
 import SubmitButton from "../components/SubmitButton";
 import UsernameOrEmailInput from "../components/UsernameOrEmailInput";
 import type { I18n } from "../i18n";
-import ButtonGroup from "../components/ButtonGroup";
 
 type RegisterProps = PageProps<Extract<KcContext, { pageId: "register.ftl" }>, I18n> & {
     UserProfileFormFields: LazyOrNot<(props: UserProfileFormFieldsProps) => JSX.Element>;
@@ -62,6 +62,7 @@ export default function Register(props: RegisterProps) {
                     errorExists={messagesPerField.existsError("email")}
                     errorMsg={messagesPerField.get("email")}
                     autoFocus={true}
+                    errorId="input-error-email"
                 ></UsernameOrEmailInput>
 
                 {!realm.registrationEmailAsUsername && (
@@ -81,6 +82,7 @@ export default function Register(props: RegisterProps) {
                         errorExists={messagesPerField.existsError("username")}
                         errorMsg={messagesPerField.get("username")}
                         autoFocus={false}
+                        errorId="input-error-username"
                     ></UsernameOrEmailInput>
                 )}
 
@@ -97,7 +99,7 @@ export default function Register(props: RegisterProps) {
                     usernameHidden={true}
                     invalid={messagesPerField.existsError("password", "password-confirm")}
                     errorMsg={messagesPerField.getFirstError("password", "password-confirm")}
-                    autoFocus={false}
+                    errorId="input-error-password"
                 ></PasswordInput>
 
                 <PasswordInput
@@ -113,7 +115,7 @@ export default function Register(props: RegisterProps) {
                     usernameHidden={true}
                     invalid={messagesPerField.existsError("password-confirm")}
                     errorMsg={messagesPerField.getFirstError("password-confirm")}
-                    autoFocus={false}
+                    errorId="input-error-password-confirm"
                 ></PasswordInput>
 
                 {termsAcceptanceRequired && (

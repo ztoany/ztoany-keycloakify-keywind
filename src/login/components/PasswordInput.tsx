@@ -19,7 +19,8 @@ export default function PasswordInput({
     usernameHidden,
     invalid,
     errorMsg,
-    autoFocus = false
+    autoFocus = false,
+    errorId = "input-error"
 }: {
     tabIndex: number;
     doUseDefaultCss: boolean;
@@ -33,7 +34,8 @@ export default function PasswordInput({
     usernameHidden: boolean | undefined;
     invalid: boolean;
     errorMsg: string;
-    autoFocus: boolean;
+    autoFocus?: boolean;
+    errorId?: string;
 }) {
     const { kcClsx } = getKcClsx({
         doUseDefaultCss,
@@ -66,7 +68,7 @@ export default function PasswordInput({
             </PasswordWrapper>
             {usernameHidden && invalid && (
                 <div
-                    id="input-error"
+                    id={errorId}
                     className={kcClsx("kcInputErrorMessageClass")}
                     aria-live="polite"
                     dangerouslySetInnerHTML={{

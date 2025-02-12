@@ -17,7 +17,8 @@ export default function UsernameOrEmailInput({
     invalid,
     errorExists,
     errorMsg,
-    autoFocus
+    autoFocus,
+    errorId = "input-error"
 }: {
     tabIndex: number;
     doUseDefaultCss: boolean;
@@ -34,6 +35,7 @@ export default function UsernameOrEmailInput({
     errorExists: boolean;
     errorMsg: string;
     autoFocus: boolean;
+    errorId?: string;
 }) {
     const { kcClsx } = getKcClsx({
         doUseDefaultCss,
@@ -72,7 +74,7 @@ export default function UsernameOrEmailInput({
             />
             {errorExists && (
                 <div
-                    id="input-error"
+                    id={errorId}
                     className={kcClsx("kcInputErrorMessageClass")}
                     aria-live="polite"
                     dangerouslySetInnerHTML={{
