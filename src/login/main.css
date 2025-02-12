@@ -130,18 +130,20 @@
 
 
 .linkPrimaryClass {
-    @apply text-primary-600 hover:text-primary-500 inline-flex;
+    @apply text-primary-600 hover:text-primary-500;
 }
 
 .linkSecondaryClass {
-    @apply text-secondary-600 hover:text-secondary-900 inline-flex;
+    @apply text-secondary-600 hover:text-secondary-900;
+}
+
+.linkFontSmallSizeClass {
+    @apply text-sm;
 }
 
 .checkBoxClass {
     @apply border-secondary-200 h-4 rounded text-primary-600 w-4 focus:ring-primary-200 focus:ring-opacity-50;
 }
-
-
 
 .alterErrorColorClass {
     @apply bg-red-100 text-red-600;

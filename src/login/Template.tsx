@@ -1,12 +1,12 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import { useInitialize } from "keycloakify/login/Template.useInitialize";
 import type { TemplateProps } from "keycloakify/login/TemplateProps";
 import { clsx } from "keycloakify/tools/clsx";
 import { useSetClassName } from "keycloakify/tools/useSetClassName";
 import { useEffect } from "react";
+import Alter from "./components/Altert";
 import ArrowTopRightOnSquareIcon from "./components/icons/ArrowTopRightOnSquareIcon";
 import type { I18n } from "./i18n";
 import type { KcContext } from "./KcContext";
@@ -76,7 +76,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                 id="reset-login"
                                 href={url.loginRestartFlowUrl}
                                 aria-label={msgStr("restartLoginTooltip")}
-                                className="linkPrimaryClass"
+                                className="linkPrimaryClass inline-flex"
                             >
                                 <div className="kc-login-tooltip">
                                     <ArrowTopRightOnSquareIcon />
@@ -90,12 +90,12 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                     {/* App-initiated actions should not see warning messages about the need to complete the action during login. */}
                     {/* alter */}
                     {displayMessage && message !== undefined && (message.type !== "warning" || !isAppInitiatedAction) && (
-                        <div
-                            className={clsx("kcAlertClass", getAlterColorClass(message.type))}
-                            dangerouslySetInnerHTML={{
-                                __html: kcSanitize(message.summary)
-                            }}
-                        ></div>
+                        <Alter
+                            doUseDefaultCss={doUseDefaultCss}
+                            classes={classes}
+                            colorClass={getAlterColorClass(message.type)}
+                            message={message.summary}
+                        ></Alter>
                     )}
                     {children}
                     {displayRequiredFields && <p className="text-secondary-600 text-sm">* {msg("requiredFields")}</p>}
@@ -119,7 +119,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                 {enabledLanguages.length > 1 && (
                     <Menu as="div" className="relative">
                         <div>
-                            <MenuButton className="linkSecondaryClass">
+                            <MenuButton className="linkSecondaryClass inline-flex">
                                 <div className="flex items-center">
                                     <span className="mr-1 text-sm">{currentLanguage.label}</span>
                                     <ChevronDownIcon aria-hidden="true" className="h-5 w-5" />
@@ -134,7 +134,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                         <a
                                             role="menuitem"
                                             id={`language-${i + 1}`}
-                                            className={clsx(kcClsx("kcLocaleItemClass"), "linkSecondaryClass")}
+                                            className={clsx(kcClsx("kcLocaleItemClass"), "linkSecondaryClass", "inline-flex")}
                                             href={href}
                                         >
                                             {label}
@@ -150,7 +150,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     );
 }
 
-function getAlterColorClass(msgType: string): string {
+function getAlterColorClass(msgType: string) {
     switch (msgType) {
         case "success":
             return "alterSuccessColorClass";

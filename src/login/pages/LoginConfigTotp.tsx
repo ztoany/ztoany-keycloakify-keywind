@@ -4,6 +4,7 @@ import { clsx } from "keycloakify/tools/clsx";
 import type { KcContext } from "../KcContext";
 import ButtonGroup from "../components/ButtonGroup";
 import FormInput from "../components/FormInput";
+import Link from "../components/Link";
 import SubmitButton from "../components/SubmitButton";
 import type { I18n } from "../i18n";
 
@@ -48,9 +49,9 @@ export default function LoginConfigTotp(props: PageProps<Extract<KcContext, { pa
                                 </p>
                             </li>
                             <li>
-                                <a href={totp.qrUrl} id="mode-barcode" className="linkPrimaryClass">
+                                <Link href={totp.qrUrl} id="mode-barcode" colorClass="linkPrimaryClass">
                                     {msg("loginTotpScanBarcode")}
-                                </a>
+                                </Link>
                             </li>
                             <li className="space-y-2">
                                 <p>{msg("loginTotpManualStep3")}</p>
@@ -86,9 +87,9 @@ export default function LoginConfigTotp(props: PageProps<Extract<KcContext, { pa
                                 className="mx-auto"
                             />
                             <p>
-                                <a href={totp.manualUrl} id="mode-manual" className="linkPrimaryClass">
+                                <Link href={totp.manualUrl} id="mode-manual" colorClass="linkPrimaryClass">
                                     {msg("loginTotpUnableToScan")}
-                                </a>
+                                </Link>
                             </p>
                         </li>
                     )}

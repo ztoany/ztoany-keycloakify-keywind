@@ -1,18 +1,24 @@
 import { I18n } from "../i18n";
+import Link from "./Link";
 
 export default function BackToLogin({
-    tabIndex,
+    tabIndex = 0,
     i18n,
     loginUrl
 }: {
-    tabIndex: number;
+    tabIndex?: number;
     i18n: I18n;
     loginUrl: string;
 }) {
     const { msg } = i18n;
     return (
-        <a className="linkSecondaryClass text-sm" tabIndex={tabIndex} href={loginUrl}>
+        <Link
+            tabIndex={tabIndex}
+            colorClass="linkSecondaryClass"
+            fontSizeClass="linkFontSmallSizeClass"
+            href={loginUrl}
+        >
             {msg("backToLogin")}
-        </a>
+        </Link>
     );
 }

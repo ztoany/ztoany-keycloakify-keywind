@@ -2,6 +2,7 @@ import { ClassKey } from "keycloakify/login";
 
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import { I18n } from "../i18n";
+import Link from "./Link";
 
 export default function LoginFormSetting({
     tabIndex,
@@ -49,13 +50,14 @@ export default function LoginFormSetting({
                 </div>
             )}
             {realmResetPasswordAllowed && (
-                <a
-                    className="linkPrimaryClass text-sm"
+                <Link
                     tabIndex={tabIndex + 1}
                     href={loginResetCredentialsUrl}
+                    colorClass="linkPrimaryClass"
+                    fontSizeClass="linkFontSmallSizeClass"
                 >
                     {msg("doForgotPassword")}
-                </a>
+                </Link>
             )}
         </div>
     );

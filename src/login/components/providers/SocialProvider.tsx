@@ -128,20 +128,3 @@ function getColorClass(providerAlias: string) {
             return "defaultProviderColorClass";
     }
 }
-
-/** 
-<a
-class="${colorClass} border border-secondary-200 flex justify-center py-2 rounded-lg hover:border-transparent"
-data-provider="${provider.alias}"
-href="${provider.loginUrl}"
-type="button"
->
-<#if providerIcons[provider.alias]??>
-  <div class="h-6 w-6">
-    <@providerIcons[provider.alias] />
-  </div>
-<#else>
-  ${provider.displayName!}
-</#if>
-</a>
-*/

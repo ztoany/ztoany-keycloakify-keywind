@@ -1,6 +1,7 @@
 import type { PageProps } from "keycloakify/login/pages/PageProps";
-import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import type { KcContext } from "../KcContext";
+import Alter from "../components/Altert";
+import Link from "../components/Link";
 import type { I18n } from "../i18n";
 
 export default function Error(props: PageProps<Extract<KcContext, { pageId: "error.ftl" }>, I18n>) {
@@ -19,13 +20,13 @@ export default function Error(props: PageProps<Extract<KcContext, { pageId: "err
             displayMessage={false}
             headerNode={msg("errorTitle")}
         >
-            <div id="kc-error-message">
-                <p className="instruction" dangerouslySetInnerHTML={{ __html: kcSanitize(message.summary) }} />
+            <div id="kc-error-message" className="m-0 space-y-4">
+                <Alter doUseDefaultCss={doUseDefaultCss} classes={classes} message={message.summary} colorClass="alterErrorColorClass"></Alter>
                 {!skipLink && client !== undefined && client.baseUrl !== undefined && (
                     <p>
-                        <a id="backToApplication" href={client.baseUrl}>
+                        <Link id="backToApplication" href={client.baseUrl} colorClass="linkSecondaryClass" fontSizeClass="linkFontSmallSizeClass">
                             {msg("backToApplication")}
-                        </a>
+                        </Link>
                     </p>
                 )}
             </div>

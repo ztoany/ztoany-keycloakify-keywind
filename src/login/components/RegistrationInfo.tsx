@@ -1,4 +1,5 @@
 import { I18n } from "../i18n";
+import Link from "./Link";
 
 export default function RegistrationInfo({
     tabIndex,
@@ -14,13 +15,13 @@ export default function RegistrationInfo({
         <div id="kc-registration" className="text-center">
             <span>
                 {msg("noAccount")}{" "}
-                <a
-                    className="linkPrimaryClass"
+                <Link
                     tabIndex={tabIndex}
                     href={registrationUrl}
+                    colorClass="linkPrimaryClass"
                 >
                     {msg("doRegister")}
-                </a>
+                </Link>
             </span>
         </div>
     );
