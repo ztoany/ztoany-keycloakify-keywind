@@ -17,6 +17,7 @@ const LoginUsername = lazy(() => import("./pages/LoginUsername"));
 const LoginPassword = lazy(() => import("./pages/LoginPassword"));
 const Register = lazy(() => import("./pages/Register"));
 const LoginResetPassword = lazy(() => import("./pages/LoginResetPassword"));
+const LoginConfigTotp = lazy(() => import("./pages/LoginConfigTotp"));
 
 export default function KcPage(props: { kcContext: KcContext }) {
     const { kcContext } = props;
@@ -69,7 +70,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                                 doUseDefaultCss={false}
                             />
                         );
-
+                    case "login-config-totp.ftl":
+                        return (
+                            <LoginConfigTotp
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={false}
+                            />
+                        );
                     default:
                         return (
                             <DefaultPage
