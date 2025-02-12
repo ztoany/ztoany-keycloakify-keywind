@@ -138,31 +138,26 @@ export default function LoginConfigTotp(props: PageProps<Extract<KcContext, { pa
                     {isAppInitiatedAction ? (
                         <ButtonGroup>
                             <>
-                                <SubmitButton
-                                    doUseDefaultCss={doUseDefaultCss}
-                                    classes={classes}
-                                    id="saveTOTPBtn"
-                                    content={msgStr("doSubmit")}
-                                ></SubmitButton>
+                                <SubmitButton doUseDefaultCss={doUseDefaultCss} classes={classes} id="saveTOTPBtn">
+                                    {msg("doSubmit")}
+                                </SubmitButton>
                                 <SubmitButton
                                     doUseDefaultCss={doUseDefaultCss}
                                     classes={classes}
                                     id="cancelTOTPBtn"
                                     name="cancel-aia"
                                     value="true"
-                                    content={msgStr("doCancel")}
                                     colorClass="buttonSecondaryClass"
-                                ></SubmitButton>
+                                >
+                                    {msg("doCancel")}
+                                </SubmitButton>
                             </>
                         </ButtonGroup>
                     ) : (
                         <ButtonGroup>
-                            <SubmitButton
-                                doUseDefaultCss={doUseDefaultCss}
-                                classes={classes}
-                                id="saveTOTPBtn"
-                                content={msgStr("doSubmit")}
-                            ></SubmitButton>
+                            <SubmitButton doUseDefaultCss={doUseDefaultCss} classes={classes} id="saveTOTPBtn">
+                                {msg("doSubmit")}
+                            </SubmitButton>
                         </ButtonGroup>
                     )}
                 </form>

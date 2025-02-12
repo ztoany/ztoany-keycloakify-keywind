@@ -97,13 +97,9 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                 ></LoginFormSetting>
                             )}
                             <ButtonGroup>
-                                <SubmitButton
-                                    tabIndex={7}
-                                    doUseDefaultCss={doUseDefaultCss}
-                                    classes={classes}
-                                    disabled={isLoginButtonDisabled}
-                                    content={msgStr("doLogIn")}
-                                ></SubmitButton>
+                                <SubmitButton tabIndex={7} doUseDefaultCss={doUseDefaultCss} classes={classes} disabled={isLoginButtonDisabled}>
+                                    {msg("doLogIn")}
+                                </SubmitButton>
                             </ButtonGroup>
                         </form>
                     )}

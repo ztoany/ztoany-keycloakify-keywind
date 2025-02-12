@@ -137,7 +137,9 @@ export default function Register(props: RegisterProps) {
                 )}
 
                 <ButtonGroup>
-                    <SubmitButton tabIndex={11} doUseDefaultCss={doUseDefaultCss} classes={classes} content={msgStr("doRegister")}></SubmitButton>
+                    <SubmitButton tabIndex={11} doUseDefaultCss={doUseDefaultCss} classes={classes}>
+                        {msg("doRegister")}
+                    </SubmitButton>
                 </ButtonGroup>
 
                 <BackToLogin tabIndex={12} i18n={i18n} loginUrl={url.loginUrl}></BackToLogin>

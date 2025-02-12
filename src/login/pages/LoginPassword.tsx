@@ -66,13 +66,9 @@ export default function LoginPassword(props: PageProps<Extract<KcContext, { page
                         ></LoginFormSetting>
 
                         <ButtonGroup>
-                            <SubmitButton
-                                tabIndex={5}
-                                doUseDefaultCss={doUseDefaultCss}
-                                classes={classes}
-                                disabled={isLoginButtonDisabled}
-                                content={msgStr("doLogIn")}
-                            ></SubmitButton>
+                            <SubmitButton tabIndex={5} doUseDefaultCss={doUseDefaultCss} classes={classes} disabled={isLoginButtonDisabled}>
+                                {msg("doLogIn")}
+                            </SubmitButton>
                         </ButtonGroup>
                     </form>
                 </div>

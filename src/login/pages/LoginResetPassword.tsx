@@ -1,17 +1,17 @@
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
 import BackToLogin from "../components/BackToLogin";
+import ButtonGroup from "../components/ButtonGroup";
 import SubmitButton from "../components/SubmitButton";
 import UsernameOrEmailInput from "../components/UsernameOrEmailInput";
 import type { I18n } from "../i18n";
-import ButtonGroup from "../components/ButtonGroup";
 
 export default function LoginResetPassword(props: PageProps<Extract<KcContext, { pageId: "login-reset-password.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
 
     const { url, realm, auth, messagesPerField } = kcContext;
 
-    const { msg, msgStr } = i18n;
+    const { msg } = i18n;
 
     return (
         <Template
@@ -44,7 +44,9 @@ export default function LoginResetPassword(props: PageProps<Extract<KcContext, {
                 ></UsernameOrEmailInput>
 
                 <ButtonGroup>
-                    <SubmitButton tabIndex={3} doUseDefaultCss={doUseDefaultCss} classes={classes} content={msgStr("doSubmit")}></SubmitButton>
+                    <SubmitButton tabIndex={3} doUseDefaultCss={doUseDefaultCss} classes={classes}>
+                        {msg("doSubmit")}
+                    </SubmitButton>
                 </ButtonGroup>
 
                 <BackToLogin tabIndex={4} i18n={i18n} loginUrl={url.loginUrl}></BackToLogin>

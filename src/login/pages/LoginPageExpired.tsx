@@ -1,5 +1,7 @@
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
+import ButtonGroup from "../components/ButtonGroup";
+import LinkButton from "../components/LinkButton";
 import type { I18n } from "../i18n";
 
 export default function LoginPageExpired(props: PageProps<Extract<KcContext, { pageId: "login-page-expired.ftl" }>, I18n>) {
@@ -11,18 +13,22 @@ export default function LoginPageExpired(props: PageProps<Extract<KcContext, { p
 
     return (
         <Template kcContext={kcContext} i18n={i18n} doUseDefaultCss={doUseDefaultCss} classes={classes} headerNode={msg("pageExpiredTitle")}>
-            <p id="instruction1" className="instruction">
-                {msg("pageExpiredMsg1")}
-                <a id="loginRestartLink" href={url.loginRestartFlowUrl}>
-                    {msg("doClickHere")}
-                </a>{" "}
-                .<br />
-                {msg("pageExpiredMsg2")}{" "}
-                <a id="loginContinueLink" href={url.loginAction}>
-                    {msg("doClickHere")}
-                </a>{" "}
-                .
-            </p>
+            <ButtonGroup>
+                <>
+                    <LinkButton id="loginRestartLink" href={url.loginRestartFlowUrl} doUseDefaultCss={doUseDefaultCss} classes={classes}>
+                        {msg("doTryAgain")}
+                    </LinkButton>
+                    <LinkButton
+                        id="loginContinueLink"
+                        href={url.loginAction}
+                        doUseDefaultCss={doUseDefaultCss}
+                        classes={classes}
+                        colorClass="buttonSecondaryClass"
+                    >
+                        {msg("doContinue")}
+                    </LinkButton>
+                </>
+            </ButtonGroup>
         </Template>
     );
 }

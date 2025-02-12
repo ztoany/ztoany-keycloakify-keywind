@@ -1,29 +1,25 @@
 import { ClassKey, getKcClsx } from "keycloakify/login/lib/kcClsx";
 import { clsx } from "keycloakify/tools/clsx";
 
-type SubmitButtonProps = {
+type LinkButtonProps = {
     tabIndex?: number;
     doUseDefaultCss: boolean;
     classes?: Partial<Record<ClassKey, string>>;
-    disabled?: boolean | undefined;
-    name?: string;
-    value?: string;
     children: JSX.Element;
-    id?: string;
+    id: string;
     colorClass?: "buttonPrimaryClass" | "buttonSecondaryClass";
+    href: string;
 };
 
-export default function SubmitButton(props: SubmitButtonProps) {
+export default function LinkButton(props: LinkButtonProps) {
     const {
         tabIndex = 0,
         doUseDefaultCss,
         classes,
-        disabled = false,
-        value,
         children,
-        name,
-        id = "c-form-buttons",
-        colorClass = "buttonPrimaryClass"
+        id,
+        colorClass = "buttonPrimaryClass",
+        href
     } = props;
 
     const { kcClsx } = getKcClsx({
@@ -32,10 +28,9 @@ export default function SubmitButton(props: SubmitButtonProps) {
     });
 
     return (
-        <button
+        <a
             id={id}
             tabIndex={tabIndex}
-            disabled={disabled}
             className={clsx(
                 kcClsx(
                     "kcButtonClass",
@@ -46,11 +41,9 @@ export default function SubmitButton(props: SubmitButtonProps) {
                 colorClass,
                 "buttonFontSizeMediumClass"
             )}
-            type="submit"
-            {...(name ? { name: name } : {})}
-            {...(value ? { value: value } : {})}
+            href={href}
         >
             {children}
-        </button>
+        </a>
     );
 }
