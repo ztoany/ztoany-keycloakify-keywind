@@ -4,6 +4,7 @@ import BackToLogin from "../components/BackToLogin";
 import SubmitButton from "../components/SubmitButton";
 import UsernameOrEmailInput from "../components/UsernameOrEmailInput";
 import type { I18n } from "../i18n";
+import ButtonGroup from "../components/ButtonGroup";
 
 export default function LoginResetPassword(props: PageProps<Extract<KcContext, { pageId: "login-reset-password.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
@@ -41,13 +42,10 @@ export default function LoginResetPassword(props: PageProps<Extract<KcContext, {
                     errorMsg={messagesPerField.getFirstError("username")}
                     autoFocus={true}
                 ></UsernameOrEmailInput>
-                <SubmitButton
-                    tabIndex={3}
-                    doUseDefaultCss={doUseDefaultCss}
-                    classes={classes}
-                    disabled={false}
-                    value={msgStr("doSubmit")}
-                ></SubmitButton>
+
+                <ButtonGroup>
+                    <SubmitButton tabIndex={3} doUseDefaultCss={doUseDefaultCss} classes={classes} content={msgStr("doSubmit")}></SubmitButton>
+                </ButtonGroup>
 
                 <BackToLogin tabIndex={4} i18n={i18n} loginUrl={url.loginUrl}></BackToLogin>
             </form>

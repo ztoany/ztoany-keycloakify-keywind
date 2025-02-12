@@ -70,12 +70,25 @@
     @apply flex items-center justify-between;
 }
 
+.kcFormOptionsClass {
+    @apply flex items-center justify-between;
+}
+
+.kcFormOptionsWrapperClass {
+    @apply flex items-center;
+}
+
 .kcButtonClass {
     @apply flex justify-center relative rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-offset-2;
 }
 
-.kcButtonPrimaryClass {
+
+.buttonPrimaryClass {
     @apply bg-primary-600 text-white focus:ring-primary-600 hover:bg-primary-700;
+}
+
+.buttonSecondaryClass {
+    @apply bg-secondary-100 text-secondary-600 focus:ring-secondary-600 hover:bg-secondary-200 hover:text-secondary-900;
 }
 
 .buttonGroupClass {
@@ -90,9 +103,6 @@
     @apply px-4 py-2 text-sm;
 }
 
-.buttonSecondaryClass {
-    @apply bg-secondary-100 text-secondary-600 focus:ring-secondary-600 hover:bg-secondary-200 hover:text-secondary-900;
-}
 
 .kcLocaleListClass {
     @apply absolute bg-white bottom-0 -left-4 max-h-80 mb-6 overflow-y-scroll rounded-lg shadow-lg;

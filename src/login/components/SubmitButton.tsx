@@ -1,44 +1,56 @@
 import { ClassKey, getKcClsx } from "keycloakify/login/lib/kcClsx";
 import { clsx } from "keycloakify/tools/clsx";
 
-export default function SubmitButton({
-    tabIndex,
-    doUseDefaultCss,
-    classes,
-    disabled,
-    value
-}: {
-    tabIndex: number;
+type SubmitButtonProps = {
+    tabIndex?: number;
     doUseDefaultCss: boolean;
     classes?: Partial<Record<ClassKey, string>>;
-    disabled: boolean | undefined;
-    value: string;
-}) {
+    disabled?: boolean | undefined;
+    name?: string;
+    value?: string;
+    content: string;
+    id?: string;
+    colorClass?: "buttonPrimaryClass" | "buttonSecondaryClass";
+};
+
+export default function SubmitButton(props: SubmitButtonProps) {
+    const {
+        tabIndex = 0,
+        doUseDefaultCss,
+        classes,
+        disabled = false,
+        value,
+        content,
+        name,
+        id = "c-form-buttons",
+        colorClass = "buttonPrimaryClass"
+    } = props;
+
     const { kcClsx } = getKcClsx({
         doUseDefaultCss,
         classes
     });
 
     return (
-        <div
-            id="kc-form-buttons"
-            className={clsx(kcClsx("kcFormGroupClass"), "buttonGroupClass")}
+        <button
+            id={id}
+            tabIndex={tabIndex}
+            disabled={disabled}
+            className={clsx(
+                kcClsx(
+                    "kcButtonClass",
+                    "kcButtonPrimaryClass",
+                    "kcButtonBlockClass",
+                    "kcButtonLargeClass"
+                ),
+                colorClass,
+                "buttonFontSizeMediumClass"
+            )}
+            type="submit"
+            {...(name ? { name: name } : {})}
+            {...(value ? { value: value } : {})}
         >
-            <input
-                tabIndex={tabIndex}
-                disabled={disabled}
-                className={clsx(
-                    kcClsx(
-                        "kcButtonClass",
-                        "kcButtonPrimaryClass",
-                        "kcButtonBlockClass",
-                        "kcButtonLargeClass"
-                    ),
-                    "buttonFontSizeMediumClass"
-                )}
-                type="submit"
-                value={value}
-            />
-        </div>
+            {content}
+        </button>
     );
 }

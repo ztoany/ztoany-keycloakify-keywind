@@ -12,6 +12,7 @@ import PasswordInput from "../components/PasswordInput";
 import SubmitButton from "../components/SubmitButton";
 import UsernameOrEmailInput from "../components/UsernameOrEmailInput";
 import type { I18n } from "../i18n";
+import ButtonGroup from "../components/ButtonGroup";
 
 type RegisterProps = PageProps<Extract<KcContext, { pageId: "register.ftl" }>, I18n> & {
     UserProfileFormFields: LazyOrNot<(props: UserProfileFormFieldsProps) => JSX.Element>;
@@ -133,13 +134,9 @@ export default function Register(props: RegisterProps) {
                     </div>
                 )}
 
-                <SubmitButton
-                    tabIndex={11}
-                    doUseDefaultCss={doUseDefaultCss}
-                    classes={classes}
-                    disabled={false}
-                    value={msgStr("doRegister")}
-                ></SubmitButton>
+                <ButtonGroup>
+                    <SubmitButton tabIndex={11} doUseDefaultCss={doUseDefaultCss} classes={classes} content={msgStr("doRegister")}></SubmitButton>
+                </ButtonGroup>
 
                 <BackToLogin tabIndex={12} i18n={i18n} loginUrl={url.loginUrl}></BackToLogin>
             </form>

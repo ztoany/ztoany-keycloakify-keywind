@@ -1,6 +1,7 @@
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import { useState } from "react";
 import type { KcContext } from "../KcContext";
+import ButtonGroup from "../components/ButtonGroup";
 import LoginFormSetting from "../components/LoginFormSetting";
 import RegistrationInfo from "../components/RegistrationInfo";
 import SubmitButton from "../components/SubmitButton";
@@ -76,13 +77,15 @@ export default function LoginUsername(props: PageProps<Extract<KcContext, { page
                                 loginResetCredentialsUrl={url.loginResetCredentialsUrl}
                             ></LoginFormSetting>
 
-                            <SubmitButton
-                                tabIndex={5}
-                                doUseDefaultCss={doUseDefaultCss}
-                                classes={classes}
-                                disabled={isLoginButtonDisabled}
-                                value={msgStr("doLogIn")}
-                            ></SubmitButton>
+                            <ButtonGroup>
+                                <SubmitButton
+                                    tabIndex={5}
+                                    doUseDefaultCss={doUseDefaultCss}
+                                    classes={classes}
+                                    disabled={isLoginButtonDisabled}
+                                    content={msgStr("doLogIn")}
+                                ></SubmitButton>
+                            </ButtonGroup>
                         </form>
                     )}
                 </div>
