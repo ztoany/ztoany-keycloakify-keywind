@@ -51,7 +51,7 @@ export default function LoginFormSetting({
             {realmResetPasswordAllowed && (
                 <a
                     className="linkPrimaryClass text-sm"
-                    tabIndex={6}
+                    tabIndex={tabIndex + 1}
                     href={loginResetCredentialsUrl}
                 >
                     {msg("doForgotPassword")}

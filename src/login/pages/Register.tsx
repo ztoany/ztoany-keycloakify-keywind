@@ -9,7 +9,7 @@ import { useState } from "react";
 import type { KcContext } from "../KcContext";
 import BackToLogin from "../components/BackToLogin";
 import PasswordInput from "../components/PasswordInput";
-import RegisterButton from "../components/RegisterButton";
+import SubmitButton from "../components/SubmitButton";
 import UsernameOrEmailInput from "../components/UsernameOrEmailInput";
 import type { I18n } from "../i18n";
 
@@ -133,7 +133,13 @@ export default function Register(props: RegisterProps) {
                     </div>
                 )}
 
-                <RegisterButton tabIndex={11} doUseDefaultCss={doUseDefaultCss} classes={classes} i18n={i18n} disabled={false}></RegisterButton>
+                <SubmitButton
+                    tabIndex={11}
+                    doUseDefaultCss={doUseDefaultCss}
+                    classes={classes}
+                    disabled={false}
+                    value={msgStr("doRegister")}
+                ></SubmitButton>
 
                 <BackToLogin tabIndex={12} i18n={i18n} loginUrl={url.loginUrl}></BackToLogin>
             </form>

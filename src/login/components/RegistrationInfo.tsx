@@ -11,19 +11,17 @@ export default function RegistrationInfo({
 }) {
     const { msg } = i18n;
     return (
-        <div id="kc-registration-container">
-            <div id="kc-registration">
-                <span>
-                    {msg("noAccount")}{" "}
-                    <a
-                        className="linkPrimaryClass"
-                        tabIndex={tabIndex}
-                        href={registrationUrl}
-                    >
-                        {msg("doRegister")}
-                    </a>
-                </span>
-            </div>
+        <div id="kc-registration" className="text-center">
+            <span>
+                {msg("noAccount")}{" "}
+                <a
+                    className="linkPrimaryClass"
+                    tabIndex={tabIndex}
+                    href={registrationUrl}
+                >
+                    {msg("doRegister")}
+                </a>
+            </span>
         </div>
     );
 }

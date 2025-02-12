@@ -42,14 +42,14 @@ export default function LoginResetPassword(props: PageProps<Extract<KcContext, {
                     autoFocus={true}
                 ></UsernameOrEmailInput>
                 <SubmitButton
-                    tabIndex={4}
+                    tabIndex={3}
                     doUseDefaultCss={doUseDefaultCss}
                     classes={classes}
                     disabled={false}
                     value={msgStr("doSubmit")}
                 ></SubmitButton>
 
-                <BackToLogin tabIndex={6} i18n={i18n} loginUrl={url.loginUrl}></BackToLogin>
+                <BackToLogin tabIndex={4} i18n={i18n} loginUrl={url.loginUrl}></BackToLogin>
             </form>
         </Template>
     );

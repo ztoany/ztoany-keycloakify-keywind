@@ -1,9 +1,9 @@
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import { useState } from "react";
 import type { KcContext } from "../KcContext";
-import LoginButton from "../components/LoginButton";
 import LoginFormSetting from "../components/LoginFormSetting";
 import PasswordInput from "../components/PasswordInput";
+import SubmitButton from "../components/SubmitButton";
 import type { I18n } from "../i18n";
 
 export default function LoginPassword(props: PageProps<Extract<KcContext, { pageId: "login-password.ftl" }>, I18n>) {
@@ -53,7 +53,7 @@ export default function LoginPassword(props: PageProps<Extract<KcContext, { page
                         ></PasswordInput>
 
                         <LoginFormSetting
-                            tabIndex={5}
+                            tabIndex={3}
                             doUseDefaultCss={doUseDefaultCss}
                             classes={classes}
                             i18n={i18n}
@@ -64,13 +64,13 @@ export default function LoginPassword(props: PageProps<Extract<KcContext, { page
                             loginResetCredentialsUrl={url.loginResetCredentialsUrl}
                         ></LoginFormSetting>
 
-                        <LoginButton
-                            tabIndex={4}
+                        <SubmitButton
+                            tabIndex={5}
                             doUseDefaultCss={doUseDefaultCss}
                             classes={classes}
-                            i18n={i18n}
-                            isLoginButtonDisabled={isLoginButtonDisabled}
-                        ></LoginButton>
+                            disabled={isLoginButtonDisabled}
+                            value={msgStr("doLogIn")}
+                        ></SubmitButton>
                     </form>
                 </div>
             </div>

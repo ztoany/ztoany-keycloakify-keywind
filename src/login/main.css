@@ -22,7 +22,6 @@
     }
 }
 
-
 .kcBodyClass {
     @apply bg-secondary-100 flex flex-col items-center justify-center min-h-screen sm:py-16;
 }
@@ -93,10 +92,6 @@
 
 .buttonSecondaryClass {
     @apply bg-secondary-100 text-secondary-600 focus:ring-secondary-600 hover:bg-secondary-200 hover:text-secondary-900;
-}
-
-.kcInfoAreaWrapperClass {
-    @apply text-center;
 }
 
 .kcLocaleListClass {
