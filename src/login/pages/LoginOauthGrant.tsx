@@ -1,18 +1,14 @@
-import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import { PageProps } from "keycloakify/login/pages/PageProps";
 import { KcContext } from "../KcContext";
+import ButtonGroup from "../components/ButtonGroup";
+import SubmitButton from "../components/SubmitButton";
 import type { I18n } from "../i18n";
 
 export default function LoginOauthGrant(props: PageProps<Extract<KcContext, { pageId: "login-oauth-grant.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, classes, Template } = props;
     const { url, oauth, client } = kcContext;
 
-    const { msg, msgStr, advancedMsg, advancedMsgStr } = i18n;
-
-    const { kcClsx } = getKcClsx({
-        doUseDefaultCss,
-        classes
-    });
+    const { msg, advancedMsg, advancedMsgStr } = i18n;
 
     return (
         <Template
@@ -20,17 +16,16 @@ export default function LoginOauthGrant(props: PageProps<Extract<KcContext, { pa
             i18n={i18n}
             doUseDefaultCss={doUseDefaultCss}
             classes={classes}
-            bodyClassName="oauth"
             headerNode={
                 <>
-                    {client.attributes.logoUri && <img src={client.attributes.logoUri} />}
+                    {client.attributes.logoUri && <img className="mb-4 mx-auto" src={client.attributes.logoUri} />}
                     <p>{client.name ? msg("oauthGrantTitle", advancedMsgStr(client.name)) : msg("oauthGrantTitle", client.clientId)}</p>
                 </>
             }
         >
             <div id="kc-oauth" className="content-area">
                 <h3>{msg("oauthGrantRequest")}</h3>
-                <ul>
+                <ul className="list-disc pl-4">
                     {oauth.clientScopesRequested.map(clientScope => (
                         <li key={clientScope.consentScreenText}>
                             <span>
@@ -68,34 +63,25 @@ export default function LoginOauthGrant(props: PageProps<Extract<KcContext, { pa
                         </h3>
                     ))}
 
-                <form className="form-actions" action={url.oauthAction} method="POST">
+                <form className="form-actions formSpaceClass" action={url.oauthAction} method="POST">
                     <input type="hidden" name="code" value={oauth.code} />
-                    <div className={kcClsx("kcFormGroupClass")}>
-                        <div id="kc-form-options">
-                            <div className={kcClsx("kcFormOptionsWrapperClass")}></div>
-                        </div>
-
-                        <div id="kc-form-buttons">
-                            <div className={kcClsx("kcFormButtonsWrapperClass")}>
-                                <input
-                                    className={kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonLargeClass")}
-                                    name="accept"
-                                    id="kc-login"
-                                    type="submit"
-                                    value={msgStr("doYes")}
-                                />
-                                <input
-                                    className={kcClsx("kcButtonClass", "kcButtonDefaultClass", "kcButtonLargeClass")}
-                                    name="cancel"
-                                    id="kc-cancel"
-                                    type="submit"
-                                    value={msgStr("doNo")}
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    <ButtonGroup>
+                        <>
+                            <SubmitButton doUseDefaultCss={doUseDefaultCss} classes={classes} id="kc-login" name="accept">
+                                {msg("doYes")}
+                            </SubmitButton>
+                            <SubmitButton
+                                doUseDefaultCss={doUseDefaultCss}
+                                classes={classes}
+                                id="kc-cancel"
+                                name="cancel"
+                                colorClass="buttonSecondaryClass"
+                            >
+                                {msg("doNo")}
+                            </SubmitButton>
+                        </>
+                    </ButtonGroup>
                 </form>
-                <div className="clearfix"></div>
             </div>
         </Template>
     );
