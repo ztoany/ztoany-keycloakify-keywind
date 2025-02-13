@@ -23,6 +23,7 @@ const Error = lazy(() => import("./pages/Error"));
 const LogoutConfirm = lazy(() => import("./pages/LogoutConfirm"));
 const LoginUpdatePassword = lazy(() => import("./pages/LoginUpdatePassword"));
 const Terms = lazy(() => import("./pages/Terms"));
+const LoginIdpLinkConfirm = lazy(() => import("./pages/LoginIdpLinkConfirm"));
 
 export default function KcPage(props: { kcContext: KcContext }) {
     const { kcContext } = props;
@@ -118,6 +119,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "terms.ftl":
                         return (
                             <Terms
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={false}
+                            />
+                        );
+                    case "login-idp-link-confirm.ftl":
+                        return (
+                            <LoginIdpLinkConfirm
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
                                 doUseDefaultCss={false}
