@@ -25,6 +25,7 @@ const LoginUpdatePassword = lazy(() => import("./pages/LoginUpdatePassword"));
 const Terms = lazy(() => import("./pages/Terms"));
 const LoginIdpLinkConfirm = lazy(() => import("./pages/LoginIdpLinkConfirm"));
 const LoginOauthGrant = lazy(() => import("./pages/LoginOauthGrant"));
+const LoginOtp = lazy(() => import("./pages/LoginOtp"));
 
 export default function KcPage(props: { kcContext: KcContext }) {
     const { kcContext } = props;
@@ -136,6 +137,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "login-oauth-grant.ftl":
                         return (
                             <LoginOauthGrant
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={false}
+                            />
+                        );
+                    case "login-otp.ftl":
+                        return (
+                            <LoginOtp
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
                                 doUseDefaultCss={false}
