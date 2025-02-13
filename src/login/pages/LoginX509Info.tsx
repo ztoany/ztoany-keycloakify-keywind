@@ -16,7 +16,7 @@ export default function LoginX509Info(props: PageProps<Extract<KcContext, { page
 
     const { url, x509 } = kcContext;
 
-    const { msg, msgStr } = i18n;
+    const { msg } = i18n;
 
     return (
         <Template kcContext={kcContext} i18n={i18n} doUseDefaultCss={doUseDefaultCss} classes={classes} headerNode={msg("doLogIn")}>

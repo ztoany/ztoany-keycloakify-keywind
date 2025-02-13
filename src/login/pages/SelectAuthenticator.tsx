@@ -1,5 +1,6 @@
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
+import { clsx } from "keycloakify/tools/clsx";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 
@@ -19,30 +20,35 @@ export default function SelectAuthenticator(props: PageProps<Extract<KcContext, 
             displayInfo={false}
             headerNode={msg("loginChooseAuthenticator")}
         >
-            <form id="kc-select-credential-form" className={kcClsx("kcFormClass")} action={url.loginAction} method="post">
-                <div className={kcClsx("kcSelectAuthListClass")}>
-                    {auth.authenticationSelections.map((authenticationSelection, i) => (
-                        <button
-                            key={i}
-                            className={kcClsx("kcSelectAuthListItemClass")}
-                            type="submit"
-                            name="authenticationExecution"
-                            value={authenticationSelection.authExecId}
-                        >
-                            <div className={kcClsx("kcSelectAuthListItemIconClass")}>
-                                <i className={kcClsx("kcSelectAuthListItemIconPropertyClass", authenticationSelection.iconCssClass)} />
+            <form
+                id="kc-select-credential-form"
+                className={clsx(kcClsx("kcFormClass"), "formSpaceClass", "flex", "flex-col", "items-center")}
+                action={url.loginAction}
+                method="post"
+            >
+                {auth.authenticationSelections.map((authenticationSelection, i) => (
+                    <button
+                        key={i}
+                        className={clsx(kcClsx("kcSelectAuthListItemClass"), "linkPrimaryClass", "inline-flex")}
+                        type="submit"
+                        name="authenticationExecution"
+                        value={authenticationSelection.authExecId}
+                    >
+                        <div className={kcClsx("kcSelectAuthListItemIconClass")}>
+                            <i className={kcClsx("kcSelectAuthListItemIconPropertyClass", authenticationSelection.iconCssClass)} />
+                        </div>
+                        <div className={kcClsx("kcSelectAuthListItemBodyClass")}>
+                            <div className={kcClsx("kcSelectAuthListItemHeadingClass")}>{advancedMsg(authenticationSelection.displayName)}</div>
+                            <div className={clsx(kcClsx("kcSelectAuthListItemDescriptionClass"), "text-sm")}>
+                                {advancedMsg(authenticationSelection.helpText)}
                             </div>
-                            <div className={kcClsx("kcSelectAuthListItemBodyClass")}>
-                                <div className={kcClsx("kcSelectAuthListItemHeadingClass")}>{advancedMsg(authenticationSelection.displayName)}</div>
-                                <div className={kcClsx("kcSelectAuthListItemDescriptionClass")}>{advancedMsg(authenticationSelection.helpText)}</div>
-                            </div>
-                            <div className={kcClsx("kcSelectAuthListItemFillClass")} />
-                            <div className={kcClsx("kcSelectAuthListItemArrowClass")}>
-                                <i className={kcClsx("kcSelectAuthListItemArrowIconClass")} />
-                            </div>
-                        </button>
-                    ))}
-                </div>
+                        </div>
+                        <div className={kcClsx("kcSelectAuthListItemFillClass")} />
+                        <div className={kcClsx("kcSelectAuthListItemArrowClass")}>
+                            <i className={kcClsx("kcSelectAuthListItemArrowIconClass")} />
+                        </div>
+                    </button>
+                ))}
             </form>
         </Template>
     );
