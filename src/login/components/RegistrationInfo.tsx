@@ -2,13 +2,13 @@ import { I18n } from "../i18n";
 import Link from "./Link";
 
 export default function RegistrationInfo({
-    tabIndex,
+    tabIndex = 0,
     i18n,
     registrationUrl
 }: {
-    tabIndex: number;
+    tabIndex?: number;
     i18n: I18n;
-    registrationUrl: string;
+    registrationUrl: string | undefined;
 }) {
     const { msg } = i18n;
     return (

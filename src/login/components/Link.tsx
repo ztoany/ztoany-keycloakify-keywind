@@ -10,7 +10,7 @@ export default function Link({
 }: {
     tabIndex?: number;
     id?: string;
-    href: string;
+    href: string | undefined;
     colorClass?: "linkPrimaryClass" | "linkSecondaryClass";
     fontSizeClass?: "linkFontSmallSizeClass" | "";
     children: JSX.Element;

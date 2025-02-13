@@ -1,10 +1,13 @@
-import { Fragment } from "react";
-import { clsx } from "keycloakify/tools/clsx";
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
-import { useScript } from "keycloakify/login/pages/WebauthnAuthenticate.useScript";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
+import { useScript } from "keycloakify/login/pages/WebauthnAuthenticate.useScript";
+import { clsx } from "keycloakify/tools/clsx";
+import { Fragment } from "react";
 import type { KcContext } from "../KcContext";
+import ButtonGroup from "../components/ButtonGroup";
+import SubmitButton from "../components/SubmitButton";
 import type { I18n } from "../i18n";
+import RegistrationInfo from "../components/RegistrationInfo";
 
 export default function WebauthnAuthenticate(props: PageProps<Extract<KcContext, { pageId: "webauthn-authenticate.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
@@ -13,7 +16,7 @@ export default function WebauthnAuthenticate(props: PageProps<Extract<KcContext,
 
     const { url, realm, registrationDisabled, authenticators, shouldDisplayAuthenticators } = kcContext;
 
-    const { msg, msgStr, advancedMsg } = i18n;
+    const { msg, advancedMsg } = i18n;
 
     const authButtonId = "authenticateWebAuthnButton";
 
@@ -30,16 +33,7 @@ export default function WebauthnAuthenticate(props: PageProps<Extract<KcContext,
             doUseDefaultCss={doUseDefaultCss}
             classes={classes}
             displayInfo={realm.registrationAllowed && !registrationDisabled}
-            infoNode={
-                <div id="kc-registration">
-                    <span>
-                        {msg("noAccount")}{" "}
-                        <a tabIndex={6} href={url.registrationUrl}>
-                            {msg("doRegister")}
-                        </a>
-                    </span>
-                </div>
-            }
+            infoNode={<RegistrationInfo i18n={i18n} registrationUrl={url.registrationUrl}></RegistrationInfo>}
             headerNode={msg("webauthn-login-title")}
         >
             <div id="kc-form-webauthn" className={kcClsx("kcFormClass")}>
@@ -56,7 +50,7 @@ export default function WebauthnAuthenticate(props: PageProps<Extract<KcContext,
                         <>
                             <form id="authn_select" className={kcClsx("kcFormClass")}>
                                 {authenticators.authenticators.map(authenticator => (
-                                    <input type="hidden" name="authn_use_chk" value={authenticator.credentialId} />
+                                    <input key={authenticator.credentialId} type="hidden" name="authn_use_chk" value={authenticator.credentialId} />
                                 ))}
                             </form>
 
@@ -122,15 +116,11 @@ export default function WebauthnAuthenticate(props: PageProps<Extract<KcContext,
                             )}
                         </>
                     )}
-                    <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")}>
-                        <input
-                            id={authButtonId}
-                            type="button"
-                            autoFocus
-                            value={msgStr("webauthn-doAuthenticate")}
-                            className={kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonBlockClass", "kcButtonLargeClass")}
-                        />
-                    </div>
+                    <ButtonGroup>
+                        <SubmitButton id={authButtonId} doUseDefaultCss={doUseDefaultCss} classes={classes}>
+                            {msg("webauthn-doAuthenticate")}
+                        </SubmitButton>
+                    </ButtonGroup>
                 </div>
             </div>
         </Template>
