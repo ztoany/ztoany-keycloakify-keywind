@@ -252,3 +252,11 @@
 .kcLoginOTPListClass {
     @apply ml-2 text-secondary-600 text-sm;
 }
+
+.kcRecoveryCodesList {
+    @apply columns-1 font-mono text-center;
+}
+
+.kcRecoveryCodesActions {
+    @apply flex items-stretch space-x-4 mb-4;
+}
