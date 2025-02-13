@@ -1,7 +1,10 @@
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
-import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
+import { clsx } from "keycloakify/tools/clsx";
 import type { KcContext } from "../KcContext";
+import ButtonGroup from "../components/ButtonGroup";
+import FormInput from "../components/FormInput";
+import SubmitButton from "../components/SubmitButton";
 import type { I18n } from "../i18n";
 
 export default function LoginRecoveryAuthnCodeInput(props: PageProps<Extract<KcContext, { pageId: "login-recovery-authn-code-input.ftl" }>, I18n>) {
@@ -25,51 +28,27 @@ export default function LoginRecoveryAuthnCodeInput(props: PageProps<Extract<KcC
             headerNode={msg("auth-recovery-code-header")}
             displayMessage={!messagesPerField.existsError("recoveryCodeInput")}
         >
-            <form id="kc-recovery-code-login-form" className={kcClsx("kcFormClass")} action={url.loginAction} method="post">
-                <div className={kcClsx("kcFormGroupClass")}>
-                    <div className={kcClsx("kcLabelWrapperClass")}>
-                        <label htmlFor="recoveryCodeInput" className={kcClsx("kcLabelClass")}>
-                            {msg("auth-recovery-code-prompt", `${recoveryAuthnCodesInputBean.codeNumber}`)}
-                        </label>
-                    </div>
-                    <div className={kcClsx("kcInputWrapperClass")}>
-                        <input
-                            tabIndex={1}
-                            id="recoveryCodeInput"
-                            name="recoveryCodeInput"
-                            aria-invalid={messagesPerField.existsError("recoveryCodeInput")}
-                            autoComplete="off"
-                            type="text"
-                            className={kcClsx("kcInputClass")}
-                            autoFocus
-                        />
-                        {messagesPerField.existsError("recoveryCodeInput") && (
-                            <span
-                                id="input-error"
-                                className={kcClsx("kcInputErrorMessageClass")}
-                                aria-live="polite"
-                                dangerouslySetInnerHTML={{
-                                    __html: kcSanitize(messagesPerField.get("recoveryCodeInput"))
-                                }}
-                            />
-                        )}
-                    </div>
-                </div>
+            <form id="kc-recovery-code-login-form" className={clsx(kcClsx("kcFormClass"), "formSpaceClass")} action={url.loginAction} method="post">
+                <FormInput
+                    doUseDefaultCss={doUseDefaultCss}
+                    classes={classes}
+                    type="text"
+                    id="recoveryCodeInput"
+                    name="recoveryCodeInput"
+                    autoComplete="off"
+                    invalid={messagesPerField.existsError("recoveryCodeInput")}
+                    autoFocus={true}
+                    errorMsg={messagesPerField.get("recoveryCodeInput")}
+                    errorId="input-error"
+                    placeholder={msgStr("auth-recovery-code-prompt", `${recoveryAuthnCodesInputBean.codeNumber}`)}
+                    labelContent={msgStr("auth-recovery-code-prompt", `${recoveryAuthnCodesInputBean.codeNumber}`)}
+                ></FormInput>
 
-                <div className={kcClsx("kcFormGroupClass")}>
-                    <div id="kc-form-options" className={kcClsx("kcFormOptionsWrapperClass")}>
-                        <div className={kcClsx("kcFormOptionsWrapperClass")} />
-                    </div>
-                    <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")}>
-                        <input
-                            className={kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonBlockClass", "kcButtonLargeClass")}
-                            name="login"
-                            id="kc-login"
-                            type="submit"
-                            value={msgStr("doLogIn")}
-                        />
-                    </div>
-                </div>
+                <ButtonGroup>
+                    <SubmitButton doUseDefaultCss={doUseDefaultCss} classes={classes} name="login" id="kc-login">
+                        {msg("doLogIn")}
+                    </SubmitButton>
+                </ButtonGroup>
             </form>
         </Template>
     );
