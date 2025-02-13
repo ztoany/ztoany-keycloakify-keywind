@@ -34,6 +34,7 @@ const LoginRecoveryAuthnCodeInput = lazy(
 );
 const LoginX509Info = lazy(() => import("./pages/LoginX509Info"));
 const SelectAuthenticator = lazy(() => import("./pages/SelectAuthenticator"));
+const WebauthnAuthenticate = lazy(() => import("./pages/WebauthnAuthenticate"));
 
 export default function KcPage(props: { kcContext: KcContext }) {
     const { kcContext } = props;
@@ -185,6 +186,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "select-authenticator.ftl":
                         return (
                             <SelectAuthenticator
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={false}
+                            />
+                        );
+                    case "webauthn-authenticate.ftl":
+                        return (
+                            <WebauthnAuthenticate
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
                                 doUseDefaultCss={false}
