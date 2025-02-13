@@ -22,6 +22,7 @@ const LoginPageExpired = lazy(() => import("./pages/LoginPageExpired"));
 const Error = lazy(() => import("./pages/Error"));
 const LogoutConfirm = lazy(() => import("./pages/LogoutConfirm"));
 const LoginUpdatePassword = lazy(() => import("./pages/LoginUpdatePassword"));
+const Terms = lazy(() => import("./pages/Terms"));
 
 export default function KcPage(props: { kcContext: KcContext }) {
     const { kcContext } = props;
@@ -109,6 +110,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "login-update-password.ftl":
                         return (
                             <LoginUpdatePassword
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={false}
+                            />
+                        );
+                    case "terms.ftl":
+                        return (
+                            <Terms
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
                                 doUseDefaultCss={false}
