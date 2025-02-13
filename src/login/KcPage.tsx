@@ -29,6 +29,9 @@ const LoginOtp = lazy(() => import("./pages/LoginOtp"));
 const LoginRecoveryAuthnCodeConfig = lazy(
     () => import("./pages/LoginRecoveryAuthnCodeConfig")
 );
+const LoginRecoveryAuthnCodeInput = lazy(
+    () => import("./pages/LoginRecoveryAuthnCodeInput")
+);
 
 export default function KcPage(props: { kcContext: KcContext }) {
     const { kcContext } = props;
@@ -156,6 +159,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "login-recovery-authn-code-config.ftl":
                         return (
                             <LoginRecoveryAuthnCodeConfig
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={false}
+                            />
+                        );
+                    case "login-recovery-authn-code-input.ftl":
+                        return (
+                            <LoginRecoveryAuthnCodeInput
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
                                 doUseDefaultCss={false}
