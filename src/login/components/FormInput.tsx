@@ -14,7 +14,7 @@ type FormInputProps = {
     labelContent: string;
     invalid: boolean;
     errorMsg: string;
-    required: boolean;
+    required?: boolean;
     autoFocus?: boolean;
     errorId: string;
 };
@@ -33,7 +33,7 @@ export default function FormInput(props: FormInputProps) {
         labelContent,
         invalid,
         errorMsg,
-        required,
+        required = true,
         autoFocus = false,
         errorId
     } = props;

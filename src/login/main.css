@@ -240,3 +240,15 @@
 .defaultProviderColorClass {
     @apply hover:bg-secondary-100;
 }
+
+.radioContainerClass {
+    @apply flex items-center space-x-4;
+}
+
+.kcLoginOTPListInputClass {
+    @apply border-secondary-200 focus:ring-primary-600;
+}
+
+.kcLoginOTPListClass {
+    @apply ml-2 text-secondary-600 text-sm;
+}

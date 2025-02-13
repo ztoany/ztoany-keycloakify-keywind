@@ -1,8 +1,10 @@
-import { Fragment } from "react";
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
-import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
+import { clsx } from "keycloakify/tools/clsx";
 import type { KcContext } from "../KcContext";
+import ButtonGroup from "../components/ButtonGroup";
+import FormInput from "../components/FormInput";
+import SubmitButton from "../components/SubmitButton";
 import type { I18n } from "../i18n";
 
 export default function LoginOtp(props: PageProps<Extract<KcContext, { pageId: "login-otp.ftl" }>, I18n>) {
@@ -26,12 +28,12 @@ export default function LoginOtp(props: PageProps<Extract<KcContext, { pageId: "
             displayMessage={!messagesPerField.existsError("totp")}
             headerNode={msg("doLogIn")}
         >
-            <form id="kc-otp-login-form" className={kcClsx("kcFormClass")} action={url.loginAction} method="post">
+            <form id="kc-otp-login-form" className={clsx(kcClsx("kcFormClass"), "formSpaceClass")} action={url.loginAction} method="post">
                 {otpLogin.userOtpCredentials.length > 1 && (
                     <div className={kcClsx("kcFormGroupClass")}>
-                        <div className={kcClsx("kcInputWrapperClass")}>
+                        <div className={clsx(kcClsx("kcInputWrapperClass"), "radioContainerClass")}>
                             {otpLogin.userOtpCredentials.map((otpCredential, index) => (
-                                <Fragment key={index}>
+                                <div key={index}>
                                     <input
                                         id={`kc-otp-credential-${index}`}
                                         className={kcClsx("kcLoginOTPListInputClass")}
@@ -48,55 +50,32 @@ export default function LoginOtp(props: PageProps<Extract<KcContext, { pageId: "
                                             <span className={kcClsx("kcLoginOTPListItemTitleClass")}>{otpCredential.userLabel}</span>
                                         </span>
                                     </label>
-                                </Fragment>
+                                </div>
                             ))}
                         </div>
                     </div>
                 )}
 
-                <div className={kcClsx("kcFormGroupClass")}>
-                    <div className={kcClsx("kcLabelWrapperClass")}>
-                        <label htmlFor="otp" className={kcClsx("kcLabelClass")}>
-                            {msg("loginOtpOneTime")}
-                        </label>
-                    </div>
-                    <div className={kcClsx("kcInputWrapperClass")}>
-                        <input
-                            id="otp"
-                            name="otp"
-                            autoComplete="off"
-                            type="text"
-                            className={kcClsx("kcInputClass")}
-                            autoFocus
-                            aria-invalid={messagesPerField.existsError("totp")}
-                        />
-                        {messagesPerField.existsError("totp") && (
-                            <span
-                                id="input-error-otp-code"
-                                className={kcClsx("kcInputErrorMessageClass")}
-                                aria-live="polite"
-                                dangerouslySetInnerHTML={{
-                                    __html: kcSanitize(messagesPerField.get("totp"))
-                                }}
-                            />
-                        )}
-                    </div>
-                </div>
+                <FormInput
+                    doUseDefaultCss={doUseDefaultCss}
+                    classes={classes}
+                    type="text"
+                    id="otp"
+                    name="otp"
+                    autoComplete="off"
+                    invalid={messagesPerField.existsError("totp")}
+                    autoFocus={true}
+                    errorMsg={messagesPerField.get("totp")}
+                    errorId="input-error-otp-code"
+                    placeholder={msgStr("loginOtpOneTime") + " *"}
+                    labelContent={msgStr("loginOtpOneTime")}
+                ></FormInput>
 
-                <div className={kcClsx("kcFormGroupClass")}>
-                    <div id="kc-form-options" className={kcClsx("kcFormOptionsClass")}>
-                        <div className={kcClsx("kcFormOptionsWrapperClass")}></div>
-                    </div>
-                    <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")}>
-                        <input
-                            className={kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonBlockClass", "kcButtonLargeClass")}
-                            name="login"
-                            id="kc-login"
-                            type="submit"
-                            value={msgStr("doLogIn")}
-                        />
-                    </div>
-                </div>
+                <ButtonGroup>
+                    <SubmitButton doUseDefaultCss={doUseDefaultCss} classes={classes} name="login" id="kc-login">
+                        {msg("doLogIn")}
+                    </SubmitButton>
+                </ButtonGroup>
             </form>
         </Template>
     );
