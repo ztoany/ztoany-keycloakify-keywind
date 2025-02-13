@@ -22,7 +22,7 @@ export default function SubmitButton(props: SubmitButtonProps) {
         value,
         children,
         name,
-        id = "c-form-buttons",
+        id = "c-form-button",
         colorClass = "buttonPrimaryClass"
     } = props;
 

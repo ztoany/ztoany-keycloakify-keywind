@@ -7,7 +7,7 @@ import EyeIcon from "./icons/EyeIcon";
 import EyeSlashIcon from "./icons/EyeSlashIcon";
 
 export default function PasswordInput({
-    tabIndex,
+    tabIndex = 0,
     doUseDefaultCss,
     classes,
     i18n,
@@ -22,7 +22,7 @@ export default function PasswordInput({
     autoFocus = false,
     errorId = "input-error"
 }: {
-    tabIndex: number;
+    tabIndex?: number;
     doUseDefaultCss: boolean;
     classes?: Partial<Record<ClassKey, string>>;
     i18n: I18n;
@@ -51,7 +51,7 @@ export default function PasswordInput({
                 kcClsx={kcClsx}
                 i18n={i18n}
                 passwordInputId={id}
-                tabIndex={tabIndex + 1}
+                tabIndex={tabIndex === 0 ? 0 : tabIndex + 1}
             >
                 <input
                     tabIndex={tabIndex}

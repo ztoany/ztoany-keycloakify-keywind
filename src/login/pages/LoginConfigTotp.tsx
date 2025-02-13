@@ -1,10 +1,11 @@
-import { getKcClsx, KcClsx } from "keycloakify/login/lib/kcClsx";
+import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import { clsx } from "keycloakify/tools/clsx";
 import type { KcContext } from "../KcContext";
 import ButtonGroup from "../components/ButtonGroup";
 import FormInput from "../components/FormInput";
 import Link from "../components/Link";
+import LogoutOtherSessions from "../components/LogoutOtherSessions";
 import SubmitButton from "../components/SubmitButton";
 import type { I18n } from "../i18n";
 
@@ -164,20 +165,5 @@ export default function LoginConfigTotp(props: PageProps<Extract<KcContext, { pa
                 </form>
             </>
         </Template>
-    );
-}
-
-function LogoutOtherSessions(props: { kcClsx: KcClsx; i18n: I18n }) {
-    const { kcClsx, i18n } = props;
-
-    const { msg } = i18n;
-
-    return (
-        <div id="kc-form-options" className={kcClsx("kcFormOptionsClass")}>
-            <div className={kcClsx("kcFormOptionsWrapperClass")}>
-                <input type="checkbox" id="logout-sessions" name="logout-sessions" value="on" defaultChecked={true} className="checkBoxClass" />{" "}
-                <label className="ml-2 text-secondary-600 text-sm">{msg("logoutOtherSessions")}</label>
-            </div>
-        </div>
     );
 }
