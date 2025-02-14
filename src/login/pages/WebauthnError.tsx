@@ -1,6 +1,8 @@
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
+import ButtonGroup from "../components/ButtonGroup";
+import SubmitButton from "../components/SubmitButton";
 import type { I18n } from "../i18n";
 
 export default function WebauthnError(props: PageProps<Extract<KcContext, { pageId: "webauthn-error.ftl" }>, I18n>) {
@@ -8,7 +10,7 @@ export default function WebauthnError(props: PageProps<Extract<KcContext, { page
 
     const { url, isAppInitiatedAction } = kcContext;
 
-    const { msg, msgStr } = i18n;
+    const { msg } = i18n;
 
     const { kcClsx } = getKcClsx({
         doUseDefaultCss,
@@ -28,33 +30,39 @@ export default function WebauthnError(props: PageProps<Extract<KcContext, { page
                 <input type="hidden" id="executionValue" name="authenticationExecution" />
                 <input type="hidden" id="isSetRetry" name="isSetRetry" />
             </form>
-            <input
-                tabIndex={4}
-                onClick={() => {
-                    // @ts-expect-error: Trusted Keycloak's code
-                    document.getElementById("isSetRetry").value = "retry";
-                    // @ts-expect-error: Trusted Keycloak's code
-                    document.getElementById("executionValue").value = "${execution}";
-                    // @ts-expect-error: Trusted Keycloak's code
-                    document.getElementById("kc-error-credential-form").submit();
-                }}
-                type="button"
-                className={kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonBlockClass", "kcButtonLargeClass")}
-                name="try-again"
-                id="kc-try-again"
-                value={msgStr("doTryAgain")}
-            />
+            <ButtonGroup>
+                <>
+                    <SubmitButton
+                        doUseDefaultCss={doUseDefaultCss}
+                        classes={classes}
+                        name="try-again"
+                        id="kc-try-again"
+                        tabIndex={4}
+                        onClick={() => {
+                            // @ts-expect-error: Trusted Keycloak's code
+                            document.getElementById("isSetRetry").value = "retry";
+                            // @ts-expect-error: Trusted Keycloak's code
+                            document.getElementById("executionValue").value = "${execution}";
+                            // @ts-expect-error: Trusted Keycloak's code
+                            document.getElementById("kc-error-credential-form").submit();
+                        }}
+                    >
+                        {msg("doTryAgain")}
+                    </SubmitButton>
+                </>
+            </ButtonGroup>
             {isAppInitiatedAction && (
                 <form action={url.loginAction} className={kcClsx("kcFormClass")} id="kc-webauthn-settings-form" method="post">
-                    <button
-                        type="submit"
-                        className={kcClsx("kcButtonClass", "kcButtonDefaultClass", "kcButtonBlockClass", "kcButtonLargeClass")}
+                    <SubmitButton
+                        doUseDefaultCss={doUseDefaultCss}
+                        classes={classes}
                         id="cancelWebAuthnAIA"
                         name="cancel-aia"
                         value="true"
+                        colorClass="buttonSecondaryClass"
                     >
-                        {msgStr("doCancel")}
-                    </button>
+                        {msg("doCancel")}
+                    </SubmitButton>
                 </form>
             )}
         </Template>

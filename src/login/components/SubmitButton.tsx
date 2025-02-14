@@ -1,5 +1,6 @@
 import { ClassKey, getKcClsx } from "keycloakify/login/lib/kcClsx";
 import { clsx } from "keycloakify/tools/clsx";
+import { MouseEventHandler } from "react";
 
 type SubmitButtonProps = {
     tabIndex?: number;
@@ -11,6 +12,7 @@ type SubmitButtonProps = {
     children: JSX.Element;
     id?: string;
     colorClass?: "buttonPrimaryClass" | "buttonSecondaryClass";
+    onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 };
 
 export default function SubmitButton(props: SubmitButtonProps) {
@@ -23,7 +25,8 @@ export default function SubmitButton(props: SubmitButtonProps) {
         children,
         name,
         id = "c-form-button",
-        colorClass = "buttonPrimaryClass"
+        colorClass = "buttonPrimaryClass",
+        onClick
     } = props;
 
     const { kcClsx } = getKcClsx({
@@ -49,6 +52,7 @@ export default function SubmitButton(props: SubmitButtonProps) {
             type="submit"
             {...(name ? { name: name } : {})}
             {...(value ? { value: value } : {})}
+            {...(onClick ? { onClick: onClick } : {})}
         >
             {children}
         </button>
