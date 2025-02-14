@@ -36,6 +36,7 @@ const LoginX509Info = lazy(() => import("./pages/LoginX509Info"));
 const SelectAuthenticator = lazy(() => import("./pages/SelectAuthenticator"));
 const WebauthnAuthenticate = lazy(() => import("./pages/WebauthnAuthenticate"));
 const WebauthnError = lazy(() => import("./pages/WebauthnError"));
+const WebauthnRegister = lazy(() => import("./pages/WebauthnRegister"));
 
 export default function KcPage(props: { kcContext: KcContext }) {
     const { kcContext } = props;
@@ -203,6 +204,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "webauthn-error.ftl":
                         return (
                             <WebauthnError
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={false}
+                            />
+                        );
+                    case "webauthn-register.ftl":
+                        return (
+                            <WebauthnRegister
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
                                 doUseDefaultCss={false}
