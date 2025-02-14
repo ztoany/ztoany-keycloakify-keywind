@@ -1,5 +1,6 @@
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
+import Link from "../components/Link";
 import type { I18n } from "../i18n";
 
 export default function LoginVerifyEmail(props: PageProps<Extract<KcContext, { pageId: "login-verify-email.ftl" }>, I18n>) {
@@ -21,7 +22,9 @@ export default function LoginVerifyEmail(props: PageProps<Extract<KcContext, { p
                 <p className="instruction">
                     {msg("emailVerifyInstruction2")}
                     <br />
-                    <a href={url.loginAction}>{msg("doClickHere")}</a>
+                    <Link href={url.loginAction} colorClass="linkPrimaryClass">
+                        {msg("doClickHere")}
+                    </Link>
                     &nbsp;
                     {msg("emailVerifyInstruction3")}
                 </p>
