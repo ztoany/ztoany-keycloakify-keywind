@@ -39,6 +39,9 @@ const WebauthnError = lazy(() => import("./pages/WebauthnError"));
 const WebauthnRegister = lazy(() => import("./pages/WebauthnRegister"));
 const Info = lazy(() => import("./pages/Info"));
 const LoginVerifyEmail = lazy(() => import("./pages/LoginVerifyEmail"));
+const LoginOauth2DeviceVerifyUserCode = lazy(
+    () => import("./pages/LoginOauth2DeviceVerifyUserCode")
+);
 
 export default function KcPage(props: { kcContext: KcContext }) {
     const { kcContext } = props;
@@ -230,6 +233,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "login-verify-email.ftl":
                         return (
                             <LoginVerifyEmail
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={false}
+                            />
+                        );
+                    case "login-oauth2-device-verify-user-code.ftl":
+                        return (
+                            <LoginOauth2DeviceVerifyUserCode
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
                                 doUseDefaultCss={false}
