@@ -1,6 +1,7 @@
-import type { PageProps } from "keycloakify/login/pages/PageProps";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
+import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
+import Link from "../components/Link";
 import type { I18n } from "../i18n";
 
 export default function Info(props: PageProps<Extract<KcContext, { pageId: "info.ftl" }>, I18n>) {
@@ -25,7 +26,7 @@ export default function Info(props: PageProps<Extract<KcContext, { pageId: "info
                 />
             }
         >
-            <div id="kc-info-message">
+            <div id="kc-info-message" className="m-0 space-y-4">
                 <p
                     className="instruction"
                     dangerouslySetInnerHTML={{
@@ -54,14 +55,18 @@ export default function Info(props: PageProps<Extract<KcContext, { pageId: "info
                     if (pageRedirectUri) {
                         return (
                             <p>
-                                <a href={pageRedirectUri}>{msg("backToApplication")}</a>
+                                <Link href={pageRedirectUri} colorClass="linkSecondaryClass" fontSizeClass="linkFontSmallSizeClass">
+                                    {msg("backToApplication")}
+                                </Link>
                             </p>
                         );
                     }
                     if (actionUri) {
                         return (
                             <p>
-                                <a href={actionUri}>{msg("proceedWithAction")}</a>
+                                <Link href={actionUri} colorClass="linkSecondaryClass" fontSizeClass="linkFontSmallSizeClass">
+                                    {msg("proceedWithAction")}
+                                </Link>
                             </p>
                         );
                     }
@@ -69,7 +74,9 @@ export default function Info(props: PageProps<Extract<KcContext, { pageId: "info
                     if (client.baseUrl) {
                         return (
                             <p>
-                                <a href={client.baseUrl}>{msg("backToApplication")}</a>
+                                <Link href={client.baseUrl} colorClass="linkSecondaryClass" fontSizeClass="linkFontSmallSizeClass">
+                                    {msg("backToApplication")}
+                                </Link>
                             </p>
                         );
                     }
