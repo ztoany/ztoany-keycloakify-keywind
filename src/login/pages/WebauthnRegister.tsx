@@ -1,7 +1,10 @@
-import { getKcClsx, type KcClsx } from "keycloakify/login/lib/kcClsx";
-import { useScript } from "keycloakify/login/pages/WebauthnRegister.useScript";
+import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
+import { useScript } from "keycloakify/login/pages/WebauthnRegister.useScript";
 import type { KcContext } from "../KcContext";
+import ButtonGroup from "../components/ButtonGroup";
+import LogoutOtherSessions from "../components/LogoutOtherSessions";
+import SubmitButton from "../components/SubmitButton";
 import type { I18n } from "../i18n";
 
 export default function WebauthnRegister(props: PageProps<Extract<KcContext, { pageId: "webauthn-register.ftl" }>, I18n>) {
@@ -11,7 +14,7 @@ export default function WebauthnRegister(props: PageProps<Extract<KcContext, { p
 
     const { url, isSetRetry, isAppInitiatedAction } = kcContext;
 
-    const { msg, msgStr } = i18n;
+    const { msg } = i18n;
 
     const authButtonId = "authenticateWebAuthnButton";
 
@@ -45,45 +48,28 @@ export default function WebauthnRegister(props: PageProps<Extract<KcContext, { p
                     <LogoutOtherSessions kcClsx={kcClsx} i18n={i18n} />
                 </div>
             </form>
-            <input
-                type="submit"
-                className={kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonBlockClass", "kcButtonLargeClass")}
-                id={authButtonId}
-                value={msgStr("doRegisterSecurityKey")}
-            />
 
-            {!isSetRetry && isAppInitiatedAction && (
-                <form action={url.loginAction} className={kcClsx("kcFormClass")} id="kc-webauthn-settings-form" method="post">
-                    <button
-                        type="submit"
-                        className={kcClsx("kcButtonClass", "kcButtonDefaultClass", "kcButtonBlockClass", "kcButtonLargeClass")}
-                        id="cancelWebAuthnAIA"
-                        name="cancel-aia"
-                        value="true"
-                    >
-                        {msg("doCancel")}
-                    </button>
-                </form>
-            )}
+            <ButtonGroup>
+                <>
+                    <SubmitButton doUseDefaultCss={doUseDefaultCss} classes={classes} id={authButtonId}>
+                        {msg("doRegisterSecurityKey")}
+                    </SubmitButton>
+                    {!isSetRetry && isAppInitiatedAction && (
+                        <form action={url.loginAction} className={kcClsx("kcFormClass")} id="kc-webauthn-settings-form" method="post">
+                            <SubmitButton
+                                doUseDefaultCss={doUseDefaultCss}
+                                classes={classes}
+                                id="cancelWebAuthnAIA"
+                                name="cancel-aia"
+                                value="true"
+                                colorClass="buttonSecondaryClass"
+                            >
+                                {msg("doCancel")}
+                            </SubmitButton>
+                        </form>
+                    )}
+                </>
+            </ButtonGroup>
         </Template>
-    );
-}
-
-function LogoutOtherSessions(props: { kcClsx: KcClsx; i18n: I18n }) {
-    const { kcClsx, i18n } = props;
-
-    const { msg } = i18n;
-
-    return (
-        <div id="kc-form-options" className={kcClsx("kcFormOptionsClass")}>
-            <div className={kcClsx("kcFormOptionsWrapperClass")}>
-                <div className="checkbox">
-                    <label>
-                        <input type="checkbox" id="logout-sessions" name="logout-sessions" value="on" defaultChecked={true} />
-                        {msg("logoutOtherSessions")}
-                    </label>
-                </div>
-            </div>
-        </div>
     );
 }
